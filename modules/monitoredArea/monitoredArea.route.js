@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const monitoredAreaController = require('./monitoredArea.controller');
+const {auth} = require('../../middleware/index')
 
-router.get('/', monitoredAreaController.getAllMonitoredArea);
-router.post('/', monitoredAreaController.createNewArea)
-router.get('/:_id', monitoredAreaController.getAreabyId)
+router.get('/', auth, monitoredAreaController.getAllMonitoredArea);
+router.post('/', auth, monitoredAreaController.createNewArea)
+router.get('/:_id', auth, monitoredAreaController.getAreabyId)
 module.exports = router;
