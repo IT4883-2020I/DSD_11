@@ -29,3 +29,22 @@ exports.getAreawithId = async (_id) => {
     let area = await MonitoredArea.findOne({ _id: _id });
     return { area }
 }
+
+exports.deleteAreawithId = async (_id) => {
+    let area = await MonitoredArea.findByIdAndDelete({_id: _id});
+    return {area}
+}
+
+exports.updateArea = async (_id, data) => {
+    console.log(data)
+ await MonitoredArea.update({_id: _id}, {$set: data});
+ let area = await MonitoredArea.findById(_id)
+    // area.name=  req.body.name? req.body.name : area.name;
+    // longitude = req.body.longitude? req.body.longitude : area.longitude
+
+    // area.save();
+
+    return {area}
+   
+
+}

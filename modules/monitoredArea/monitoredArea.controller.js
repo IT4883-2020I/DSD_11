@@ -60,3 +60,43 @@ exports.getAreabyId = async (req, res) => {
         })
     }
 }
+
+exports.deleteAreabyId = async (req, res) => {
+    try {
+        console.log("Delete monitored area by id");
+        let _id = req.params._id;
+        await monitoredAreaService.deleteAreawithId(_id);
+        
+        res.status(200).json({
+            success: true, 
+            message: "delete monitored area by id successfully"
+        })
+    }catch(error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot delete area by id"
+        })
+    }
+}
+
+exports.updateArea = async (req, res) => {
+    try {
+        let data = req.body;
+        let _id= req.params._id
+        console.log("Update area with id")
+        const result = await monitoredAreaService.updateArea(_id, data);
+
+        res.status(200).json({
+            success: true, 
+            message: "Update area with id successfully",
+            content: result
+        })
+
+
+    }catch(error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot update area by id"
+        })
+    }
+}

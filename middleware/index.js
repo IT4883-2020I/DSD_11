@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const http = require("http");
 const axios = require("axios");
-const { head } = require("../modules/monitoredArea/monitoredArea.route");
 
 exports.auth = async (req, res, next) => {
     try {

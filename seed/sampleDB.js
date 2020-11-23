@@ -4,7 +4,9 @@ const { MonitoredZone, MonitoredArea, Drone } = require('../models');
 initDB = async () => {
     const mongoose = require('mongoose');
     require('dotenv').config()
-    const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT} || '27017'}/${process.env.DB_NAME}`
+    // const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT} || '27017'}/${process.env.DB_NAME}`
+    const uri = "mongodb+srv://nganluu:123456!@nganluu.mxnni.mongodb.net/monitoredarea?retryWrites=true&w=majority"
+
     const connectOption = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
