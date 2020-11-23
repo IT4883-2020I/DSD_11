@@ -13,19 +13,18 @@ exports.auth = async (req, res, next) => {
         console.log(headers["api-token"])
 
         let result;
-        await axios.post("https://distributed.de-lalcool.com/api/verify-token", {}, headers)
+        await axios.get("https://distributed.de-lalcool.com/api/verify-token", { headers: headers})
             .then((response) => {
-                result = response.status
-                console.log(response)
+                result = response.data.result
+                console.log(response.data)
             }).catch(error => {
                 console.log(error)
             })
-        if(result==200){
+        if(result){
             next()
         } else {
             throw Error("unauth")
         }    
-       
 
     } catch (error) {
         res.status(400).json({
