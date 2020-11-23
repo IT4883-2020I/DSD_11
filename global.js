@@ -1,0 +1,1 @@
+global.SERVER_DIR = __dirname
