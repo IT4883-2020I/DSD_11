@@ -7,5 +7,7 @@ router.get('/', auth, monitoredAreaController.getAllMonitoredArea);
 router.post('/', auth, monitoredAreaController.createNewArea);
 router.get('/:_id', auth, monitoredAreaController.getAreabyId);
 router.put('/:_id', monitoredAreaController.updateArea);
-router.delete('/:_id', auth, monitoredAreaController.deleteAreabyId)
+router.delete('/:_id', auth, monitoredAreaController.deleteAreabyId);
+router.get('/statisticFrequency/:freq',  monitoredAreaController.statisticFrequency);
+router.get('/statisticLevel/:level',  monitoredAreaController.statisticLevel);
 module.exports = router;

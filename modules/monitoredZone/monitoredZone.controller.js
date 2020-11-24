@@ -112,3 +112,43 @@ exports.updateZone = async (req, res) => {
         })
     }
 }
+exports.statisticFrequency = async (req, res) => {
+    try {
+
+        let freq = req.params.freq;
+        let result = await monitoredZoneService.statisticFrequency(freq)
+
+        res.status(200).json({
+            success: true, 
+            message: "get zone with frequency successfully",
+            content: result
+        })
+
+    }catch (error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot get zone with frequency",
+            content: error.message
+        })
+    }
+}
+exports.statisticLevel = async (req, res) => {
+    try {
+
+        let level = req.params.level;
+        let result = await monitoredZoneService.statisticLevel(level)
+
+        res.status(200).json({
+            success: true, 
+            message: "get zone with level successfully",
+            content: result
+        })
+
+    }catch (error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot get zone with level ",
+            content: error.message
+        })
+    }
+}

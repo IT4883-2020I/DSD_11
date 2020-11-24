@@ -35,6 +35,12 @@ const monitoredAreaSchema = new Schema({
     }],
     desciption: {
         type: String
+    }, 
+    level: {
+        type: Number
+    },
+    times: {
+        type: Number
     }
 }, {
     timestamps: true

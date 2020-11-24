@@ -57,6 +57,7 @@ exports.getAreabyId = async (req, res) => {
         res.status(400).json({
             success: false, 
             message: "Cannot get monitored area by id",
+            content: error.message
         })
     }
 }
@@ -69,12 +70,14 @@ exports.deleteAreabyId = async (req, res) => {
         
         res.status(200).json({
             success: true, 
-            message: "delete monitored area by id successfully"
+            message: "delete monitored area by id successfully",
+            content: error.message
         })
     }catch(error){
         res.status(400).json({
             success: false, 
-            message: "Cannot delete area by id"
+            message: "Cannot delete area by id",
+            content: error.message
         })
     }
 }
@@ -96,7 +99,49 @@ exports.updateArea = async (req, res) => {
     }catch(error){
         res.status(400).json({
             success: false, 
-            message: "Cannot update area by id"
+            message: "Cannot update area by id",
+            content: error.message
+        })
+    }
+}
+
+exports.statisticFrequency = async (req, res) => {
+    try {
+
+        let freq = req.params.freq;
+        let result = await monitoredAreaService.statisticFrequency(freq)
+
+        res.status(200).json({
+            success: true, 
+            message: "get area with frequency successfully",
+            content: result
+        })
+
+    }catch (error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot get area with frequency",
+            content: error.message
+        })
+    }
+}
+exports.statisticLevel = async (req, res) => {
+    try {
+
+        let level = req.params.level;
+        let result = await monitoredAreaService.statisticLevel(level)
+
+        res.status(200).json({
+            success: true, 
+            message: "get area with level successfully",
+            content: result
+        })
+
+    }catch (error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot get area with level ",
+            content: error.message
         })
     }
 }

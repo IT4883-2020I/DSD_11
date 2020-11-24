@@ -30,17 +30,31 @@ exports.getAreawithId = async (_id) => {
 }
 
 exports.deleteAreawithId = async (_id) => {
-    let area = await MonitoredArea.findByIdAndDelete({_id: _id});
-    return {area}
+    let area = await MonitoredArea.findByIdAndDelete({ _id: _id });
+    return { area }
 }
 
 exports.updateArea = async (_id, data) => {
     console.log(data)
- await MonitoredArea.update({_id: _id}, {$set: data});
- let area = await MonitoredArea.findById(_id)
-console.log(_id)
+    await MonitoredArea.update({ _id: _id }, { $set: data });
+    let area = await MonitoredArea.findById(_id)
+    console.log(_id)
 
-    return {area}
-   
+    return { area }
+}
 
+exports.statisticFrequency = async (freq) => {
+    let data = await MonitoredArea.find({ times: freq });
+    return { data }
+}
+
+exports.statisticLevel = async (level) => {
+    let data;
+    if (level == 0 || level == 1 || level == 2) {
+        data = await MonitoredArea.find({ level: level });
+    }
+    else {
+        data = "Donot have area in this level"
+    }
+    return { data }
 }

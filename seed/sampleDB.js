@@ -4,7 +4,7 @@ const { MonitoredZone, MonitoredArea, Drone } = require('../models');
 initDB = async () => {
     const mongoose = require('mongoose');
     require('dotenv').config()
-    // const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT} || '27017'}/${process.env.DB_NAME}`
+     //const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT} || '27017'}/${process.env.DB_NAME}`
     const uri = "mongodb+srv://nganluu:123456!@nganluu.mxnni.mongodb.net/monitoredarea?retryWrites=true&w=majority"
 
     const connectOption = {
@@ -34,24 +34,14 @@ initDB = async () => {
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
             minHeight: (Math.random() * (100 - 90) + 90).toFixed(0),
             priority: (Math.random() * (0, 1, 2)).toFixed(0),
+            level: (Math.random() * (0, 1, 2)).toFixed(0),
+            times: (Math.random() * (20-1)+1).toFixed(0),
             description: "Nui " + i + " la vung nui hiem tro, co nhieu nguy co xay ra su co"
         })
 
 
 
-        // droneData.push({
-        //     isUsed: Math.random() <= 0.5,
-        //     idLog: Math.random().toFixed(0),
-        //     flightTime: Math.random().toFixed(0),
-        //     brand: "UAV",
-        //     color: "white",
-        //     dimensions: "3x2x3",
-        //     weight: 15, 
-        //     photography: "https://localhost:3000/images",
-        //     videoCapture: "http://localhost:3000/capturedVideos",
-        //     maxSpeed: (Math.random()*(60-50)+50).toFixed(0),
-        //     maxFlightTime: (Math.random()*(10-8)+10).toFixed(0),
-        // })
+       
     }
 
 
@@ -75,6 +65,8 @@ initDB = async () => {
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
             minHeight: (Math.random() * (100 - 90) + 90).toFixed(0),
             priority: (Math.random() * (0, 1, 2)).toFixed(0),
+            level: (Math.random() * (0, 1, 2)).toFixed(0),
+            times: (Math.random() * (20-1)+1).toFixed(0),
             description: "Nui " + i + " la vung nui hiem tro, co nhieu nguy co xay ra su co"
         })
 

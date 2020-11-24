@@ -1,5 +1,6 @@
 const { MonitoredZone } = require(SERVER_DIR + '/models');
 const { MonitoredArea } = require(SERVER_DIR + "/models");
+const { Drone } = require(SERVER_DIR + "/models")
 
 exports.getZonebyArea = async (_id) => {
 
@@ -36,9 +37,16 @@ exports.createZone = async (data, areaid) => {
         desciption: data.desciption
     })
     let area = await MonitoredArea.findById(areaid);
-
     area.monitoredZone.push(zone);
     area.save()
+
+    let drone;
+    console.log(data.drone.length)
+    for (var i = 0; i < data.drone.length; i++) {
+        drone = await Drone.findById({ _id: data.drone[i]._id });
+        drone.monitoredZone = zone;
+        drone.save()
+    }
 
     return { zone }
 }
@@ -49,8 +57,35 @@ exports.deleteZone = async (_id) => {
 }
 
 exports.updateZone = async (_id, data) => {
+    console.log(data)
     await MonitoredZone.update({ _id: _id }, { $set: data });
     let zone = await MonitoredZone.findById(_id)
 
+    if (data.drone) {
+        let drone;
+        for (var i = 0; i < data.drone.length; i++) {
+            drone = await Drone.findById({ _id: data.drone[i]._id });
+            drone.monitoredZone = zone;
+            drone.save()
+        }
+    }
+
     return { zone }
 }
+exports.statisticFrequency = async (freq) => {
+    let data = await MonitoredZone.find({ times: freq });
+    return { data }
+}
+
+exports.statisticLevel = async (level) => {
+    let data;
+    console.log(level)
+    if (level == 0 || level == 1 || level == 2) {
+        data = await MonitoredZone.find({ level: level });
+    }
+    else {
+        data = "Donot have area in this level"
+    }
+    return { data }
+}
+

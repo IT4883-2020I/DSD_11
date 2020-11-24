@@ -20,9 +20,11 @@ app.use(
 
 app.use(bodyParser.json());
 const monitoredAreaRoute = require('./modules/monitoredArea/monitoredArea.route')
-const monitoredZoneRoute = require('./modules/monitoredZone/monitoredZone.route')
+const monitoredZoneRoute = require('./modules/monitoredZone/monitoredZone.route');
+const droneRoute  = require('./modules/drone/drone.route')
 app.use("/area", monitoredAreaRoute);
 app.use("/monitoredzone", monitoredZoneRoute);
+app.use("/monitoredzoneuav", droneRoute);
 
 
 var port = process.env.PORT || 8000

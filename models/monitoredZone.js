@@ -23,6 +23,12 @@ const monitoredZoneSchema = new Schema({
     }],
     desciption: {
         type: String
+    },
+    times: {
+        type: Number
+    },
+    level: {
+        type: Number
     }
 }, {
     timestamps: true
