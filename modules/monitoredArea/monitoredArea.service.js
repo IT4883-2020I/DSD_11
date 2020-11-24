@@ -1,5 +1,4 @@
 const { MonitoredArea } = require(SERVER_DIR + "/models");
-const mongoose = require('mongoose')
 
 exports.getAllMonitoredArea = async (req, res) => {
     const page = Number(req.query.page);
@@ -39,10 +38,7 @@ exports.updateArea = async (_id, data) => {
     console.log(data)
  await MonitoredArea.update({_id: _id}, {$set: data});
  let area = await MonitoredArea.findById(_id)
-    // area.name=  req.body.name? req.body.name : area.name;
-    // longitude = req.body.longitude? req.body.longitude : area.longitude
-
-    // area.save();
+console.log(_id)
 
     return {area}
    
