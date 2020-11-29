@@ -17,9 +17,6 @@ const monitoredAreaSchema = new Schema({
     endPoint: {
         type: Object
     },
-    radius: {
-        type: Number
-    },
     maxHeight: {
         type: Number
     }, 

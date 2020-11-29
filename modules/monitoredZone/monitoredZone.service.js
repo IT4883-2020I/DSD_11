@@ -29,8 +29,8 @@ exports.createZone = async (data, areaid) => {
 
     let zone = await MonitoredZone.create({
         area: areaid,
-        longitude: data.longitude,
-        latitude: data.latitude,
+        startPoint: data.startPoint,
+        endPoint: data.endPoint,
         radius: data.radius,
         priority: data.priority,
         drone: data.drone,
@@ -61,6 +61,7 @@ exports.updateZone = async (_id, data) => {
     await MonitoredZone.update({ _id: _id }, { $set: data });
     let zone = await MonitoredZone.findById(_id)
 
+    
     if (data.drone) {
         let drone;
         for (var i = 0; i < data.drone.length; i++) {

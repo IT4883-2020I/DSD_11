@@ -61,7 +61,12 @@ exports.getZonebyId = async (req, res) => {
 exports.createZone = async (req, res) => {
     try {
         let data = req.body;
-        let result = await monitoredZoneService.createZone(data, req.params._id);
+        let result;
+        if (!isNaN(data.startPoint.longitude) && !isNaN(data.startPoint.latitude) && !isNaN(data.endPoint.longitude) && !isNaN(data.endPoint.latitude)) {
+         result = await monitoredZoneService.createZone(data, req.params._id);
+        } else {
+            throw Error("longitude and/or latitude are/is in the wrong type")
+        }
         res.status(201).json({
             success: true, 
             message: "Create zone successfully",

@@ -12,9 +12,6 @@ const monitoredZoneSchema = new Schema({
     endPoint: {
         type: Object
     },
-    radius: {
-        type: Number
-    },
     priority: {
         type: Number
     },

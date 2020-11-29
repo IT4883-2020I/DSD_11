@@ -14,13 +14,14 @@ exports.getAllMonitoredArea = async (req, res) => {
 exports.createMonitoredArea = async (data) => {
     let area = await MonitoredArea.create({
         name: data.name,
-        longitude: data.longitude,
-        latitude: data.latitude,
+        startPoint: data.startPoint,
+        endPoint: data.endPoint,
         radius: data.radius,
         maxHeight: data.maxHeight,
         minHeight: data.minHeight,
         priority: data.priority,
     })
+    
     return { area }
 }
 
