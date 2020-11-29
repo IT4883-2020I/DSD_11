@@ -6,11 +6,11 @@ const monitoredZoneSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'MonitoredArea'
     },
-    longitude: {
-        type: Number
+    startPoint: {
+        type: Object
     },
-    latitude: {
-        type: Number
+    endPoint: {
+        type: Object
     },
     radius: {
         type: Number

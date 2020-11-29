@@ -11,11 +11,11 @@ const monitoredAreaSchema = new Schema({
     name: {
         type: String
     },
-    longitude: {
-        type: Number
+    startPoint: {
+        type: Object
     },
-    latitude: {
-        type: Number
+    endPoint: {
+        type: Object
     },
     radius: {
         type: Number

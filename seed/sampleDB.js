@@ -4,8 +4,8 @@ const { MonitoredZone, MonitoredArea, Drone } = require('../models');
 initDB = async () => {
     const mongoose = require('mongoose');
     require('dotenv').config()
-     //const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT} || '27017'}/${process.env.DB_NAME}`
-    const uri = "mongodb+srv://nganluu:123456!@nganluu.mxnni.mongodb.net/monitoredarea?retryWrites=true&w=majority"
+    // const uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT} || '27017'}/${process.env.DB_NAME}`
+    const uri = "mongodb+srv://nganluu:123456!@nganluu.mxnni.mongodb.net/monitoredZoneService?retryWrites=true&w=majority"
 
     const connectOption = {
         useNewUrlParser: true,
@@ -28,8 +28,8 @@ initDB = async () => {
     for (var i = 0; i < 100; i++) {
         monitoredAreaData.push({
             name: "Nui " + i,
-            longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5),
-            latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5),
+            startPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
+            endPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
             radius: (Math.random() * (10000 - 1) - 1).toFixed(0),
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
             minHeight: (Math.random() * (100 - 90) + 90).toFixed(0),
@@ -59,8 +59,8 @@ initDB = async () => {
 
         monitoredZoneData.push({
             area: monitoredArea[i],
-            longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5),
-            latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5),
+            startPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
+            endPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
             radius: (Math.random() * (10000 - 1) - 1).toFixed(0),
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
             minHeight: (Math.random() * (100 - 90) + 90).toFixed(0),
