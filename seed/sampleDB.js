@@ -1,5 +1,6 @@
 //connect server
 const { MonitoredZone, MonitoredArea, Drone } = require('../models');
+const mongoose = require("mongoose")
 
 initDB = async () => {
     const mongoose = require('mongoose');
@@ -28,26 +29,17 @@ initDB = async () => {
     for (var i = 0; i < 100; i++) {
         monitoredAreaData.push({
             name: "Nui " + i,
-            startPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
-            endPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
-            radius: (Math.random() * (10000 - 1) - 1).toFixed(0),
+            startPoint: { longitude: parseInt(Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
+            endPoint: { longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
             minHeight: (Math.random() * (100 - 90) + 90).toFixed(0),
             priority: (Math.random() * (0, 1, 2)).toFixed(0),
             level: (Math.random() * (0, 1, 2)).toFixed(0),
-            times: (Math.random() * (20-1)+1).toFixed(0),
+            times: (Math.random() * (20 - 1) + 1).toFixed(0),
             description: "Nui " + i + " la vung nui hiem tro, co nhieu nguy co xay ra su co"
         })
 
-
-
-       
     }
-
-
-
-
-
 
     var monitoredArea = await MonitoredArea.insertMany(
 
@@ -59,14 +51,14 @@ initDB = async () => {
 
         monitoredZoneData.push({
             area: monitoredArea[i],
-            startPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
-            endPoint: {longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5)},
+            startPoint: { longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
+            endPoint: { longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
             radius: (Math.random() * (10000 - 1) - 1).toFixed(0),
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
             minHeight: (Math.random() * (100 - 90) + 90).toFixed(0),
             priority: (Math.random() * (0, 1, 2)).toFixed(0),
             level: (Math.random() * (0, 1, 2)).toFixed(0),
-            times: (Math.random() * (20-1)+1).toFixed(0),
+            times: (Math.random() * (20 - 1) + 1).toFixed(0),
             description: "Nui " + i + " la vung nui hiem tro, co nhieu nguy co xay ra su co"
         })
 

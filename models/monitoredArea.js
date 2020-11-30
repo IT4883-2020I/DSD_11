@@ -12,10 +12,20 @@ const monitoredAreaSchema = new Schema({
         type: String
     },
     startPoint: {
-        type: Object
+        longitude: {
+            type: Number
+        },
+        latitude: {
+            type: Number
+        }
     },
     endPoint: {
-        type: Object
+        longitude: {
+            type: Number
+        },
+        latitude: {
+            type: Number
+        }
     },
     maxHeight: {
         type: Number

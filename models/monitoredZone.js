@@ -7,10 +7,20 @@ const monitoredZoneSchema = new Schema({
         ref: 'MonitoredArea'
     },
     startPoint: {
-        type: Object
+        longitude: {
+            type: Number
+        },
+        latitude: {
+            type: Number
+        }
     },
     endPoint: {
-        type: Object
+        longitude: {
+            type: Number
+        },
+        latitude: {
+            type: Number
+        }
     },
     priority: {
         type: Number
