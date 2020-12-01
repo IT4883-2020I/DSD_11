@@ -22,7 +22,6 @@ exports.getZonebyArea = async (req, res) => {
 
 exports.getAllZone = async (req, res) => {
     try {
-
         let data = await monitoredZoneService.getAllZone(req);
         res.status(200).json({
             success: true, 

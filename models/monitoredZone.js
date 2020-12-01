@@ -37,7 +37,7 @@ const monitoredZoneSchema = new Schema({
     drone: [{
         type: Schema.Types.ObjectId
     }],
-    desciption: {
+    description: {
         type: String
     },
     times: {

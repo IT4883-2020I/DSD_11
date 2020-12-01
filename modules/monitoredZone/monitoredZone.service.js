@@ -13,8 +13,11 @@ exports.getAllZone = async (req) => {
     const page = Number(req.query.page);
     const pageSize = Number(req.query.pageSize);
 
+    
     const limit = pageSize ? pageSize : 20;
+    
     const offset = page ? page * limit : 0;
+    
     let zone = await MonitoredZone.find({}).sort('priority').skip(offset).limit(limit);
     let size = await MonitoredZone.count({})
 
