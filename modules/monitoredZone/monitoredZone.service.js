@@ -5,8 +5,7 @@ var mongoose = require("mongoose")
 
 exports.getZonebyArea = async (_id) => {
 
-    let zone = await MonitoredZone.findOne({ area: _id });
-    console.log(zone)
+    let zone = await MonitoredZone.find({ area: _id });
     return { zone }
 }
 

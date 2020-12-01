@@ -33,6 +33,8 @@ exports.getAreawithId = async (_id) => {
 
 exports.deleteAreawithId = async (_id) => {
     let area = await MonitoredArea.findByIdAndDelete({ _id: _id });
+    let zone = await MonitoredZone.deleteMany({area: _id})
+   
     return { area }
 }
 

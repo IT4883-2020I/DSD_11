@@ -76,8 +76,7 @@ exports.deleteAreabyId = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "delete monitored area by id successfully",
-            content: error.message
-        })
+                    })
     } catch (error) {
         res.status(400).json({
             success: false,
