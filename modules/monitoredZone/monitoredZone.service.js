@@ -1,6 +1,7 @@
 const { MonitoredZone } = require(SERVER_DIR + '/models');
 const { MonitoredArea } = require(SERVER_DIR + "/models");
 const { Drone } = require(SERVER_DIR + "/models")
+var mongoose = require("mongoose")
 
 exports.getZonebyArea = async (_id) => {
 
@@ -28,7 +29,7 @@ exports.getZonebyId = async (_id) => {
 exports.createZone = async (data, areaid) => {
 
     let zone = await MonitoredZone.create({
-        area: areaid,
+        area: mongoose.Types.ObjectId(areaid),
         startPoint: data.startPoint,
         endPoint: data.endPoint,
         radius: data.radius,
@@ -36,7 +37,7 @@ exports.createZone = async (data, areaid) => {
         drone: data.drone,
         desciption: data.desciption
     })
-    let area = await MonitoredArea.findById(areaid);
+    let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
     area.monitoredZone.push(zone);
     area.save()
 
