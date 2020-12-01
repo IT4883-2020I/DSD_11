@@ -11,6 +11,9 @@ const monitoredAreaSchema = new Schema({
     name: {
         type: String
     },
+    code: {
+        type: String
+    },
     startPoint: {
         longitude: {
             type: Number

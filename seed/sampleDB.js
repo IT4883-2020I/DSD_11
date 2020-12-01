@@ -29,6 +29,7 @@ initDB = async () => {
     for (var i = 0; i < 100; i++) {
         monitoredAreaData.push({
             name: "Nui " + i,
+            code: "AR"+i,
             startPoint: { longitude: parseInt(Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
             endPoint: { longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
             maxHeight: (Math.random() * (120 - 100) + 100).toFixed(0),
@@ -51,6 +52,7 @@ initDB = async () => {
 
         monitoredZoneData.push({
             area: monitoredArea[i],
+            code: "ZO"+i,
             startPoint: { longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
             endPoint: { longitude: (Math.random() * (180 - (-180)) - 180).toFixed(5), latitude: (Math.random() * (90 - (-90)) - 90).toFixed(5) },
             radius: (Math.random() * (10000 - 1) - 1).toFixed(0),
