@@ -60,6 +60,7 @@ exports.getZonebyId = async (req, res) => {
 
 exports.createZone = async (req, res) => {
     try {
+        console.log("test")
         let _id = req.body._id
         let data = req.body.data;
         let result;

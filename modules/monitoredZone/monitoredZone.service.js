@@ -29,6 +29,7 @@ exports.createZone = async (data, areaid) => {
 
     let zone = await MonitoredZone.create({
         area: mongoose.Types.ObjectId(areaid),
+        code: data.code,
         startPoint: data.startPoint,
         endPoint: data.endPoint,
         radius: data.radius,
@@ -36,26 +37,38 @@ exports.createZone = async (data, areaid) => {
         drone: data.drone,
         desciption: data.desciption
     })
+
     let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
     area.monitoredZone.push(zone);
     area.save()
 
     let drone;
-    console.log(data.drone.length)
+    if(data.drone){
     for (var i = 0; i < data.drone.length; i++) {
         drone = await Drone.findById({ _id: data.drone[i]._id });
+        console.log(drone)
+        if(drone){
         drone.monitoredZone = zone;
         drone.save()
     }
+    }
+}
 
     return { zone }
 }
 
 exports.deleteZone = async (_id) => {
     let zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
+    let area = await MonitoredArea.findOne({monitoredZone : _id })
+
+    let index = area.monitoredZone.indexOf(zone._id);
+    if (index > -1) {
+        area.monitoredZone.splice(index, 1)
+    }
+    area.save();
 
 
-    return { zone }
+    return { area }
 }
 
 exports.updateZone = async (_id, data) => {

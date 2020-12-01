@@ -15,6 +15,7 @@ exports.getAllMonitoredArea = async (req, res) => {
 exports.createMonitoredArea = async (data) => {
     let area = await MonitoredArea.create({
         name: data.name,
+        code: data.code,
         startPoint: data.startPoint,
         endPoint: data.endPoint,
         radius: data.radius,
