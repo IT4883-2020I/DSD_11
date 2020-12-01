@@ -4,25 +4,31 @@ const Schema = mongoose.Schema;
 const monitoredZoneSchema = new Schema({
     area: {
         type: Schema.Types.ObjectId,
-        ref: 'MonitoredArea'
+        ref: 'MonitoredArea',
+        required: true
     },
     code: {
-        type: String
+        type: String,
+        required: true
     },
     startPoint: {
         longitude: {
-            type: Number
+            type: Number,
+            required: true
         },
         latitude: {
-            type: Number
+            type: Number,
+            required: true
         }
     },
     endPoint: {
         longitude: {
-            type: Number
+            type: Number,
+            required: true
         },
         latitude: {
-            type: Number
+            type: Number,
+            required: true
         }
     },
     priority: {

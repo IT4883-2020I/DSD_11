@@ -9,32 +9,40 @@ const monitoredAreaSchema = new Schema({
         type: Schema.Types.ObjectId
     },
     name: {
-        type: String
+        type: String,
+        required: true
     },
     code: {
-        type: String
+        type: String,
+        required: true
     },
     startPoint: {
         longitude: {
-            type: Number
+            type: Number,
+            required: true
         },
         latitude: {
-            type: Number
-        }
+            type: Number,
+            required: true
+        },
     },
     endPoint: {
         longitude: {
-            type: Number
+            type: Number,
+            required: true
         },
         latitude: {
-            type: Number
+            type: Number,
+            required: true
         }
     },
     maxHeight: {
-        type: Number
+        type: Number,
+        required: true
     }, 
     minHeight: {
-        type: Number
+        type: Number,
+        required: true
     },
     priority: {
         type: Number
