@@ -53,6 +53,8 @@ exports.createZone = async (data, areaid) => {
 
 exports.deleteZone = async (_id) => {
     let zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
+
+
     return { zone }
 }
 
