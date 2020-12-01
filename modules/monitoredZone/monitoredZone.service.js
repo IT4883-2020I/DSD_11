@@ -18,7 +18,7 @@ exports.getAllZone = async (req) => {
     let zone = await MonitoredZone.find({}).sort('priority').skip(offset).limit(limit);
     let size = await MonitoredZone.count({})
 
-    return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size/limit+1) }
+    return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size/limit) }
 }
 
 exports.getZonebyId = async (_id) => {
