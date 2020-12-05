@@ -33,13 +33,16 @@ exports.createZone = async (data, areaid) => {
 
     let zone = await MonitoredZone.create({
         area: mongoose.Types.ObjectId(areaid),
+        name: data.name,
         code: data.code,
         startPoint: data.startPoint,
         endPoint: data.endPoint,
         radius: data.radius,
         priority: data.priority,
         drone: data.drone,
-        desciption: data.desciption
+        description: data.description,
+        active: data.active, 
+        incidentType: data.incidentType
     })
 
     let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));

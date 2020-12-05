@@ -9,7 +9,6 @@ const monitoredZoneSchema = new Schema({
     },
     name: {
         type: String, 
-        
     },
     code: {
         type: String,
