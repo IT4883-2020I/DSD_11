@@ -40,27 +40,48 @@ initDB = async () => {
     }
     ]
 
-    var incident = await Incident.insertMany(
-        incidentData
-    )
-    // monitoredAreaData.push({
-    //     name: "Núi Hàm Lợn",
-    //     startPoint: {
-    //         longitude: 105.7886,
-    //         latitude: 21.3124
-    //     },
-    //     endPoint: {
-    //         longitude: 108.0002,
-    //         latitude: 22.3456
-    //     },
-    //     code: "MA0001",
-    //     maxHeight: 100, 
-    //     minHeight: 80,
-    //     priority: 0,
-    //     level: 0, 
-    //     times: 0,
-    //     description: "Nui Ham Lon co mat do cay rung cao, nam o khu vuc it xay ra nguy co"
-    // })
+    // var incident = await Incident.insertMany(
+    //     incidentData
+    // )
+    monitoredAreaData.push({
+        name: "Núi Hàm Lợn",
+        startPoint: {
+            longitude: 105.7886,
+            latitude: 21.3124
+        },
+        endPoint: {
+            longitude: 108.0002,
+            latitude: 22.3456
+        },
+        code: "MA0001",
+        maxHeight: 100, 
+        minHeight: 80,
+        priority: 0,
+        level: 0, 
+        times: 0,
+        description: "Nui Ham Lon co mat do cay rung cao, nam o khu vuc it xay ra nguy co"
+    })
+
+    monitoredZoneData.push({
+        area: "5fcb03c3a2747e2774dac196",
+        name: "Núi Hàm Lợn Bắc",
+        code: "MZ0001",
+        startPoint: {
+            longitude: 105.7886,
+            latitude: 21.3124
+        },
+        endPoint: {
+            longitude: 105.7903,
+            latitude: 21.3130
+        },
+        priority: 0,
+        drone: [],
+        description: "Khu vuc phia bac nui ham lon",
+        times: 0,
+        level: 0,
+        active: true,
+        incidentType: "5fcb1972186fca1f9c9728eb"
+    })
 
 
 
@@ -80,11 +101,12 @@ initDB = async () => {
 
     // }
 
-    var monitoredArea = await MonitoredArea.insertMany(
+    // var monitoredArea = await MonitoredArea.insertMany(
 
-        monitoredAreaData
+    //     monitoredAreaData
 
-    )
+    // )
+
 
     // for (var i = 0; i < 100; i++) {
 
@@ -125,9 +147,9 @@ initDB = async () => {
     //     })
     // }
 
-    var drone = await Drone.insertMany(
-        droneData
-    )
+    // var drone = await Drone.insertMany(
+    //     droneData
+    // )
     // for (var i = 0; i < 100; i++) {
     //     var itemArea = await MonitoredArea.findOne({ _id: monitoredZone[i].area._id }).exec();
     //     itemArea.monitoredZone.push(monitoredZone[i]);
@@ -139,7 +161,7 @@ initDB = async () => {
     // }
 
 
-    console.log("Tao du lieu thanh cong", monitoredArea)
+    //console.log("Tao du lieu thanh cong", monitoredArea)
 
 }
 //call models
