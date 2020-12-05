@@ -13,15 +13,15 @@ exports.getAllZone = async (req) => {
     const page = Number(req.query.page);
     const pageSize = Number(req.query.pageSize);
 
-    
+
     const limit = pageSize ? pageSize : 20;
-    
+
     const offset = page ? page * limit : 0;
-    
-    let zone = await MonitoredZone.find({}).sort('priority').skip(offset).limit(limit);
+
+    let zone = await MonitoredZone.find({}).sort(['createdAt','priority']).skip(offset).limit(limit);
     let size = await MonitoredZone.count({})
 
-    return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size/limit) }
+    return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size / limit) }
 }
 
 exports.getZonebyId = async (_id) => {
@@ -47,23 +47,23 @@ exports.createZone = async (data, areaid) => {
     area.save()
 
     let drone;
-    if(data.drone){
-    for (var i = 0; i < data.drone.length; i++) {
-        drone = await Drone.findById({ _id: data.drone[i]._id });
-        console.log(drone)
-        if(drone){
-        drone.monitoredZone = zone;
-        drone.save()
+    if (data.drone) {
+        for (var i = 0; i < data.drone.length; i++) {
+            drone = await Drone.findById({ _id: data.drone[i]._id });
+            console.log(drone)
+            if (drone) {
+                drone.monitoredZone = zone;
+                drone.save()
+            }
+        }
     }
-    }
-}
 
     return { zone }
 }
 
 exports.deleteZone = async (_id) => {
     let zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
-    let area = await MonitoredArea.findOne({monitoredZone : _id })
+    let area = await MonitoredArea.findOne({ monitoredZone: _id })
 
     let index = area.monitoredZone.indexOf(zone._id);
     if (index > -1) {
@@ -80,13 +80,15 @@ exports.updateZone = async (_id, data) => {
     await MonitoredZone.update({ _id: _id }, { $set: data });
     let zone = await MonitoredZone.findById(_id)
 
-    
+
     if (data.drone) {
         let drone;
         for (var i = 0; i < data.drone.length; i++) {
             drone = await Drone.findById({ _id: data.drone[i]._id });
-            drone.monitoredZone = zone;
-            drone.save()
+            if (drone) {
+                drone.monitoredZone = zone;
+                drone.save()
+            }
         }
     }
 

@@ -2,7 +2,6 @@ const droneService = require('./drone.service');
 
 exports.setDronetoZone = async (req, res) => {
     try {
-
         let data = req.body;
         let result = await droneService.setDronetoZone(data);
         res.status(200).json({

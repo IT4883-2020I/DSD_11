@@ -7,6 +7,10 @@ const monitoredZoneSchema = new Schema({
         ref: 'MonitoredArea',
         required: true
     },
+    name: {
+        type: String, 
+        
+    },
     code: {
         type: String,
         required: true
@@ -35,7 +39,8 @@ const monitoredZoneSchema = new Schema({
         type: Number
     },
     drone: [{
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'Drone'
     }],
     description: {
         type: String
@@ -45,6 +50,13 @@ const monitoredZoneSchema = new Schema({
     },
     level: {
         type: Number
+    },
+    active: {
+        type: Boolean
+    },
+    incidentType: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Incident'
     }
 }, {
     timestamps: true

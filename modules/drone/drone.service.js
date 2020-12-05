@@ -3,23 +3,31 @@ const { MonitoredZone } = require(SERVER_DIR + "/models");
 
 exports.setDronetoZone = async (data) => {
     let zone = await MonitoredZone.findById(data.zone);
-    let drone = await Drone.findById(data.drone);
+    let droneData = data.drone;
+    let drone;
 
-    drone.monitoredZone = zone;
-    var check = 0;
-
-    for (var i = 0; i < zone.drone.length; i++) {
-        if (zone.drone[i].equals(drone._id)) {
-            check = 1;
+    if(zone){
+    for (var j = 0; j < droneData.length; j++) {
+        drone = await Drone.findById(droneData[j]);
+        console.log(droneData[j])
+        var check=0;
+        for (var i = 0; i < zone.drone.length; i++) {
+            if (zone.drone[i].equals(drone._id)) {
+                check = 1;
+            }
+        }
+        if (check == 0) {
+            zone.drone.push(drone);
         }
     }
-    if (check == 0) {
-        zone.drone.push(drone);
-    }
+
     drone.save();
     zone.save();
+} else {
+    throw Error("Cannot find zone")
+}
 
-    return { drone: drone }
+    return { zone: zone }
 
 }
 
@@ -27,7 +35,7 @@ exports.deleteDronetoZone = async (_id) => {
     let drone = await Drone.findById(_id);
     let zone = await MonitoredZone.findById(drone.monitoredZone);
 
-    drone.monitoredZone = null;
+   
     let index = zone.drone.indexOf(drone._id);
     if (index > -1) {
         zone.drone.splice(index, 1)

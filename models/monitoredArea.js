@@ -51,7 +51,7 @@ const monitoredAreaSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'MonitoredZone'
     }],
-    desciption: {
+    description: {
         type: String
     }, 
     level: {

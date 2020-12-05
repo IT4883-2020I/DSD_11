@@ -5,10 +5,6 @@ const droneSchema = new Schema({
    isUsed: {
        type: Boolean
    },
-   monitoredZone: {
-       type: Schema.Types.ObjectId,
-       ref: 'MonitoredZone'
-   },
    idLog: {
        type: Number
    },
