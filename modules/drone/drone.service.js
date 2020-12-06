@@ -1,5 +1,6 @@
 const { Drone } = require(SERVER_DIR + "/models");
 const { MonitoredZone } = require(SERVER_DIR + "/models");
+const axios = require('axios')
 
 exports.setDronetoZone = async (data) => {
     let zone = await MonitoredZone.findById(data.zone);
@@ -8,11 +9,23 @@ exports.setDronetoZone = async (data) => {
 
     if(zone){
     for (var j = 0; j < droneData.length; j++) {
-        drone = await Drone.findById(droneData[j]);
-        console.log(droneData[j])
+        //drone = await Drone.findById(droneData[j]);
+
+        await axios.get("http://skyrone.cf:6789/drone/getById/" + droneData[j])
+            .then((response) => {
+                drone = response.data
+                console.log(response.data)
+            }).catch(error => {
+                console.log(error)
+            })
+       
+
+        //console.log(droneData[j])
+        console.log(drone)
+
         var check=0;
         for (var i = 0; i < zone.drone.length; i++) {
-            if (zone.drone[i].equals(drone._id)) {
+            if (zone.drone[i].equals(drone.id)) {
                 check = 1;
             }
         }

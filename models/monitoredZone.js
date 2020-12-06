@@ -39,7 +39,6 @@ const monitoredZoneSchema = new Schema({
     },
     drone: [{
         type: Schema.Types.ObjectId,
-        ref: 'Drone'
     }],
     description: {
         type: String
