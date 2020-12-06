@@ -34,8 +34,7 @@ exports.setDronetoZone = async (data) => {
         }
     }
 
-    drone.save();
-    zone.save();
+    await zone.save();
 } else {
     throw Error("Cannot find zone")
 }
