@@ -112,8 +112,7 @@ exports.updateArea = async (req, res) => {
 exports.statisticFrequency = async (req, res) => {
     try {
 
-        let freq = req.params.freq;
-        let result = await monitoredAreaService.statisticFrequency(freq)
+        let result = await monitoredAreaService.statisticFrequency()
 
         res.status(200).json({
             success: true,

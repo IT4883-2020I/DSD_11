@@ -5,9 +5,9 @@ const {auth} = require('../../middleware/index')
 
 router.get('/',  monitoredAreaController.getAllMonitoredArea);
 router.post('/',  monitoredAreaController.createNewArea);
-router.get('/:_id',  monitoredAreaController.getAreabyId);
+router.get('/areainfo/:_id',  monitoredAreaController.getAreabyId);
 router.put('/:_id', monitoredAreaController.updateArea);
 router.delete('/:_id',  monitoredAreaController.deleteAreabyId);
-router.get('/statisticFrequency/:freq',  monitoredAreaController.statisticFrequency);
+router.get('/statisticFrequency',  monitoredAreaController.statisticFrequency);
 router.get('/statisticLevel/:level',  monitoredAreaController.statisticLevel);
 module.exports = router;

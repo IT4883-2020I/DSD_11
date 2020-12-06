@@ -49,8 +49,8 @@ exports.updateArea = async (_id, data) => {
     return { area }
 }
 
-exports.statisticFrequency = async (freq) => {
-    let data = await MonitoredArea.find({ times: freq });
+exports.statisticFrequency = async () => {
+    let data = await MonitoredArea.find().sort({'times': -1});
     return { data }
 }
 
