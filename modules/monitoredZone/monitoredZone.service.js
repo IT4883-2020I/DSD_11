@@ -18,7 +18,7 @@ exports.getAllZone = async (req) => {
 
     const offset = page ? page * limit : 0;
 
-    let zone = await MonitoredZone.find({}).sort(['createdAt','priority']).skip(offset).limit(limit);
+    let zone = await MonitoredZone.find({}).sort(['createdAt',-1],['priority', -1]).skip(offset).limit(limit);
     let size = await MonitoredZone.count({})
 
     return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size / limit) }
@@ -33,16 +33,15 @@ exports.createZone = async (data, areaid) => {
 
     let zone = await MonitoredZone.create({
         area: mongoose.Types.ObjectId(areaid),
-        name: data.name,
-        code: data.code,
-        startPoint: data.startPoint,
-        endPoint: data.endPoint,
-        radius: data.radius,
-        priority: data.priority,
-        drone: data.drone,
-        description: data.description,
-        active: data.active, 
-        incidentType: data.incidentType
+        name: data.name, //string
+        code: data.code, //string
+        startPoint: data.startPoint, //object longlat
+        endPoint: data.endPoint, //object longlat
+        priority: data.priority, //number
+        drone: data.drone, //id 
+        description: data.description, //string
+        active: data.active, //boolean
+        incidentType: data.incidentType //id
     })
 
     let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
