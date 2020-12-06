@@ -19,11 +19,27 @@ exports.createMonitoredArea = async (data) => {
         code: data.code,
         startPoint: data.startPoint,
         endPoint: data.endPoint,
-        radius: data.radius,
         maxHeight: data.maxHeight,
         minHeight: data.minHeight,
-        priority: data.priority,
+        priority: data.priority? data.priority : 0,
+        level: 0,
+        times: 0,
+        description: null
     })
+
+   
+    // supervisor
+    // name
+    // code
+    // startPoint
+    // endPoint
+    // maxHeight 
+    // minHeight
+    // priority
+    // monitoredZone
+    // description
+    // level
+    // times
     
     return { area }
 }

@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const monitoredAreaSchema = new Schema({
-    manager: {
-        type: Schema.Types.ObjectId
-    },
     supervisor: {
         type: Schema.Types.ObjectId
     },
