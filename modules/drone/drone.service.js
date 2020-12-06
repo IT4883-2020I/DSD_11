@@ -36,20 +36,15 @@ exports.setDronetoZone = async (data) => {
 
 }
 
-exports.deleteDronetoZone = async (_id) => {
-    // let drone = await Drone.findById(_id);
-     let zone = await MonitoredZone.findById(drone.monitoredZone);
+exports.deleteDronetoZone = async (data) => {
+     
+     let zone = await MonitoredZone.findById(data.zone);
+     console.log(zone)
+     console.log(data.drone)
 
 
-    // let index = zone.drone.indexOf(drone.id);
-    // if (index > -1) {
-    //     zone.drone.splice(index, 1)
-    // }
-    // zone.save();
-    // drone.save()
-
-
-
+     zone.drone = zone.drone.filter(x => {data.drone!==x.id })
+     await zone.save();
 
     return { zone}
 }
