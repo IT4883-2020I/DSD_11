@@ -37,19 +37,32 @@ exports.setDronetoZone = async (data) => {
 }
 
 exports.deleteDronetoZone = async (_id) => {
-    let drone = await Drone.findById(_id);
-    let zone = await MonitoredZone.findById(drone.monitoredZone);
+    // let drone = await Drone.findById(_id);
+     let zone = await MonitoredZone.findById(drone.monitoredZone);
 
 
-    let index = zone.drone.indexOf(drone.id);
-    if (index > -1) {
-        zone.drone.splice(index, 1)
+    // let index = zone.drone.indexOf(drone.id);
+    // if (index > -1) {
+    //     zone.drone.splice(index, 1)
+    // }
+    // zone.save();
+    // drone.save()
+
+
+
+
+    return { zone}
+}
+
+exports.deleteDroneTest = async ()=>{
+    let zones = await MonitoredZone.find();
+
+    for (let i=0; i < zones.length; i++){
+        zones[i].drone = [];
+        await zones[i].save();
     }
-    zone.save();
-    drone.save()
 
-    return { zone: zone, drone: drone }
-
+    return {zones}
 }
 
 exports.getDronebyZone = async (_id) => {

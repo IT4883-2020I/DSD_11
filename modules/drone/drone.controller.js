@@ -55,3 +55,22 @@ exports.deleteDronebyZone = async (req, res) => {
         })
     }
 }
+
+exports.deleteDroneTest = async (req, res) => {
+    try {
+        
+        let result = await droneService.deleteDroneTest();
+        res.status(200).json({
+            success: true,
+            message: "delete drone by zone successfully",
+            content: result
+        })
+
+    }catch(error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot delete drone by zone test",
+            content: error.message
+        })
+    }
+}
