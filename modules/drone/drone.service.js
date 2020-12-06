@@ -55,7 +55,7 @@ exports.deleteDroneTest = async (_id)=>{
     let zone = await MonitoredZone.findById(_id);
 
         zone.drone = [];
-   
+        zone.save()
 
     return {zone}
 }
