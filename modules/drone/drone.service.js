@@ -49,7 +49,7 @@ exports.deleteDronetoZone = async (_id) => {
     let zone = await MonitoredZone.findById(drone.monitoredZone);
 
    
-    let index = zone.drone.indexOf(drone._id);
+    let index = zone.drone.indexOf(drone.id);
     if (index > -1) {
         zone.drone.splice(index, 1)
     }
@@ -66,7 +66,15 @@ exports.getDronebyZone = async (_id) => {
     let drone = [];
 
     for (var i = 0; i < zone.drone.length; i++) {
-        let element = await Drone.findById(zone.drone[i]);
+        //let element = await Drone.findById(zone.drone[i]);
+        let element
+        await axios.get("http://skyrone.cf:6789/drone/getById/" + zone.drone[i])
+        .then((response) => {
+            element = response.data
+            console.log(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
         drone.push(element)
     }
 
