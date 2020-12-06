@@ -58,8 +58,8 @@ exports.deleteDronebyZone = async (req, res) => {
 
 exports.deleteDroneTest = async (req, res) => {
     try {
-        var id = req.params
-        let result = await droneService.deleteDroneTest(id);
+        var _id = req.params._id
+        let result = await droneService.deleteDroneTest(_id);
         res.status(200).json({
             success: true,
             message: "delete drone by zone successfully",

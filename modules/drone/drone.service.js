@@ -51,8 +51,8 @@ exports.deleteDronetoZone = async (data) => {
     return { zone}
 }
 
-exports.deleteDroneTest = async (id)=>{
-    let zone = await MonitoredZone.find(id);
+exports.deleteDroneTest = async (_id)=>{
+    let zone = await MonitoredZone.findById(_id);
 
         zone.drone = [];
    
