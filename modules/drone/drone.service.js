@@ -22,9 +22,11 @@ exports.setDronetoZone = async (data) => {
 
             //console.log(droneData[j])
             console.log(drone)
-
+            if(drone){
             zone.drone.push(drone);
-
+            }else {
+                throw Error("drone is null, check again")
+            }
         }
 
         await zone.save();
@@ -49,15 +51,15 @@ exports.deleteDronetoZone = async (data) => {
     return { zone}
 }
 
-exports.deleteDroneTest = async ()=>{
-    let zones = await MonitoredZone.find();
+exports.deleteDroneTest = async (id)=>{
+    let zone = await MonitoredZone.find(id);
 
     for (let i=0; i < zones.length; i++){
-        zones[i].drone = [];
-        await zones[i].save();
+        zone[i].drone = [];
+        await zone[i].save();
     }
 
-    return {zones}
+    return {zone}
 }
 
 exports.getDronebyZone = async (_id) => {
