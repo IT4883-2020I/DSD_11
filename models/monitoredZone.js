@@ -37,7 +37,7 @@ const monitoredZoneSchema = new Schema({
     priority: {
         type: Number
     },
-    drone: [{
+    itinerary: [{
         type: Object
     }],
     description: {

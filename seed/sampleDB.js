@@ -16,7 +16,7 @@ initDB = async () => {
         useFindAndModify: false
     }
 
-    const dbTest = mongoose.connect(uriProduct, connectOption).then(
+    const dbTest = mongoose.connect(uriTestOnline, connectOption).then(
         () => console.log("Connect successfully")
     ).catch((err) => { console.log(err) })
     if (!dbTest) {
@@ -25,7 +25,7 @@ initDB = async () => {
 
     monitoredAreaData = [];
     monitoredZoneData = [];
-    droneData = [];
+    itineraryData = [];
     incidentData = [{
         name: "Chayrung"
     },
@@ -40,9 +40,10 @@ initDB = async () => {
     }
     ]
 
-    // var incident = await Incident.insertMany(
-    //     incidentData
-    // )
+    var incident = await Incident.insertMany(
+        incidentData
+    )
+
     monitoredAreaData.push({
         name: "Núi Hàm Lợn",
         startPoint: {
@@ -75,7 +76,7 @@ initDB = async () => {
             latitude: 21.3130
         },
         priority: 0,
-        drone: [],
+        itinerary: [],
         description: "Khu vuc phia bac nui ham lon",
         times: 0,
         level: 0,
@@ -101,11 +102,11 @@ initDB = async () => {
 
     // }
 
-    // var monitoredArea = await MonitoredArea.insertMany(
+    var monitoredArea = await MonitoredArea.insertMany(
 
-    //     monitoredAreaData
+        monitoredAreaData
 
-    // )
+    )
 
 
     // for (var i = 0; i < 100; i++) {

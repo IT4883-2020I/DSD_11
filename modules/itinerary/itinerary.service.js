@@ -2,7 +2,7 @@ const { Drone } = require(SERVER_DIR + "/models");
 const { MonitoredZone } = require(SERVER_DIR + "/models");
 const axios = require('axios')
 
-exports.setDronetoZone = async (data) => {
+exports.setItinerarytoZone = async (data) => {
     let zone = await MonitoredZone.findById(data.zone);
     let droneData = data.drone;
     let drone;
@@ -38,7 +38,7 @@ exports.setDronetoZone = async (data) => {
 
 }
 
-exports.deleteDronetoZone = async (data) => {
+exports.deleteItinerarytoZone = async (data) => {
      
      let zone = await MonitoredZone.findById(data.zone);
      console.log(zone)
@@ -51,7 +51,7 @@ exports.deleteDronetoZone = async (data) => {
     return { zone}
 }
 
-exports.deleteDroneTest = async (_id)=>{
+exports.deleteItineraryTest = async (_id)=>{
     let zone = await MonitoredZone.findById(_id);
 
         zone.drone = [];
@@ -60,7 +60,7 @@ exports.deleteDroneTest = async (_id)=>{
     return {zone}
 }
 
-exports.getDronebyZone = async (_id) => {
+exports.getItinerarybyZone = async (_id) => {
     console.log(_id)
     let zone = await MonitoredZone.findById(_id)
     let drone = [];

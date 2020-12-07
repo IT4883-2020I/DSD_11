@@ -1,6 +1,6 @@
-const droneService = require('./drone.service');
+const droneService = require('./itinerary.service');
 
-exports.setDronetoZone = async (req, res) => {
+exports.setItinerarytoZone = async (req, res) => {
     try {
         let data = req.body;
         let result = await droneService.setDronetoZone(data);
@@ -19,7 +19,7 @@ exports.setDronetoZone = async (req, res) => {
     }
 }
 
-exports.getDronebyZone = async (req, res) => {
+exports.getItinerarybyZone = async (req, res) => {
     try {
         let _id = req.params._id;
         let result = await droneService.getDronebyZone(_id);
@@ -37,7 +37,7 @@ exports.getDronebyZone = async (req, res) => {
     }
 }
 
-exports.deleteDronebyZone = async (req, res) => {
+exports.deleteItinerarybyZone = async (req, res) => {
     try {
         const data = req.body
         let result = await droneService.deleteDronetoZone(data);
@@ -56,7 +56,7 @@ exports.deleteDronebyZone = async (req, res) => {
     }
 }
 
-exports.deleteDroneTest = async (req, res) => {
+exports.deleteItineraryTest = async (req, res) => {
     try {
         var _id = req.params._id
         let result = await droneService.deleteDroneTest(_id);
