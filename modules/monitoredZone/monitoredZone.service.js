@@ -40,7 +40,7 @@ exports.createZone = async (data, areaid) => {
         priority: data.priority? data.priority:0,  //number
         itinerary: data.itinerary, //array 
         description: data.description? data.description : null, //string
-        active: data.active, //boolean
+        active: data.active? data.active: 1, //boolean
         incidentType: data.incidentType, //id
         times: data.times? data.times: 0,
         level: data.level? data.level :0
@@ -50,17 +50,17 @@ exports.createZone = async (data, areaid) => {
     area.monitoredZone.push(zone);
     area.save()
 
-    let drone;
-    if (data.drone) {
-        for (var i = 0; i < data.drone.length; i++) {
-            drone = await Drone.findById({ _id: data.drone[i]._id });
-            console.log(drone)
-            if (drone) {
-                drone.monitoredZone = zone;
-                drone.save()
-            }
-        }
-    }
+    // let drone;
+    // if (data.drone) {
+    //     for (var i = 0; i < data.drone.length; i++) {
+    //         drone = await Drone.findById({ _id: data.drone[i]._id });
+    //         console.log(drone)
+    //         if (drone) {
+    //             drone.monitoredZone = zone;
+    //             drone.save()
+    //         }
+    //     }
+    // }
 
     return { zone }
 }
