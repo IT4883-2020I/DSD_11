@@ -35,6 +35,8 @@ exports.createZone = async (data, areaid) => {
         area: mongoose.Types.ObjectId(areaid),
         name: data.name? data.name: "", //string
         code: data.code, //string
+        minHeight: data.minHeight,
+        maxHeight: data.maxHeight,
         startPoint: data.startPoint, //object longlat
         endPoint: data.endPoint, //object longlat
         priority: data.priority? data.priority:0,  //number

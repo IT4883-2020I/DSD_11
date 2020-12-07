@@ -40,9 +40,9 @@ initDB = async () => {
     }
     ]
 
-    var incident = await Incident.insertMany(
-        incidentData
-    )
+    // var incident = await Incident.insertMany(
+    //     incidentData
+    // )
 
     monitoredAreaData.push({
         name: "Núi Hàm Lợn",
@@ -67,6 +67,8 @@ initDB = async () => {
         area: "5fcb03c3a2747e2774dac196",
         name: "Núi Hàm Lợn Bắc",
         code: "MZ0001",
+        minHeight: 80,
+        maxHeight: 100,
         startPoint: {
             longitude: 105.7886,
             latitude: 21.3124
@@ -102,11 +104,11 @@ initDB = async () => {
 
     // }
 
-    var monitoredArea = await MonitoredArea.insertMany(
+    // var monitoredArea = await MonitoredArea.insertMany(
 
-        monitoredAreaData
+    //     monitoredAreaData
 
-    )
+    // )
 
 
     // for (var i = 0; i < 100; i++) {

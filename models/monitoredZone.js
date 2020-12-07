@@ -14,6 +14,14 @@ const monitoredZoneSchema = new Schema({
         type: String,
         required: true
     },
+    maxHeight: {
+        type: Number, 
+        required: true
+    },
+    minHeight: {
+        type: Number,
+        required: true
+    },
     startPoint: {
         longitude: {
             type: Number,
