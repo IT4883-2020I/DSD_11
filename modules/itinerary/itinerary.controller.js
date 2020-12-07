@@ -3,7 +3,7 @@ const droneService = require('./itinerary.service');
 exports.setItinerarytoZone = async (req, res) => {
     try {
         let data = req.body;
-        let result = await droneService.setDronetoZone(data);
+        let result = await droneService.setItinerarytoZone(data);
         res.status(200).json({
             success: true,
             message: "Set drone to zone successfully",
@@ -22,7 +22,7 @@ exports.setItinerarytoZone = async (req, res) => {
 exports.getItinerarybyZone = async (req, res) => {
     try {
         let _id = req.params._id;
-        let result = await droneService.getDronebyZone(_id);
+        let result = await droneService.getItinerarybyZone(_id);
         res.status(200).json({
             success: true,
             message: "Get drone by zone successfully",
@@ -40,7 +40,7 @@ exports.getItinerarybyZone = async (req, res) => {
 exports.deleteItinerarybyZone = async (req, res) => {
     try {
         const data = req.body
-        let result = await droneService.deleteDronetoZone(data);
+        let result = await droneService.deleteItinerarytoZone(data);
         res.status(200).json({
             success: true,
             message: "delete drone by zone successfully",
@@ -59,7 +59,7 @@ exports.deleteItinerarybyZone = async (req, res) => {
 exports.deleteItineraryTest = async (req, res) => {
     try {
         var _id = req.params._id
-        let result = await droneService.deleteDroneTest(_id);
+        let result = await droneService.deleteItineraryTest(_id);
         res.status(200).json({
             success: true,
             message: "delete drone by zone successfully",
