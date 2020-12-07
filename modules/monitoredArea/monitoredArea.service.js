@@ -10,7 +10,7 @@ exports.getAllMonitoredArea = async (req, res) => {
     let monitoredArea = await MonitoredArea.find({}).sort({'createdAt': -1}).skip(offset).limit(limit)
     let size = await MonitoredZone.count({})
 
-    return { monitoredArea, page: page ? page : 0, pageSize: limit, totalPage: parseInt(size/limit) }
+    return { monitoredArea, page: page ? page : 0, pageSize: limit, totalPage: parseInt(size/limit) + 1, totalCount: size }
 }
 
 exports.createMonitoredArea = async (data) => {
