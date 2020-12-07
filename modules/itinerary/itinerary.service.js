@@ -1,31 +1,31 @@
-const { Drone } = require(SERVER_DIR + "/models");
+const { itinerary } = require(SERVER_DIR + "/models");
 const { MonitoredZone } = require(SERVER_DIR + "/models");
 const axios = require('axios')
 
 exports.setItinerarytoZone = async (data) => {
     let zone = await MonitoredZone.findById(data.zone);
-    let droneData = data.drone;
-    let drone;
+    let itineraryData = data.itinerary;
+    let itinerary;
 
     if (zone) {
-        for (var j = 0; j < droneData.length; j++) {
-            //drone = await Drone.findById(droneData[j]);
+        for (var j = 0; j < itineraryData.length; j++) {
+            //itinerary = await itinerary.findById(itineraryData[j]);
 
-            await axios.get("http://skyrone.cf:6789/drone/getById/" + droneData[j])
+            await axios.get("http://skyrone.cf:6789/itinerary/getById/" + itineraryData[j])
                 .then((response) => {
-                    drone = response.data
+                    itinerary = response.data
                     console.log(response.data)
                 }).catch(error => {
                     console.log(error)
                 })
 
 
-            //console.log(droneData[j])
-            console.log(drone)
-            if(drone){
-            zone.drone.push(drone);
+            //console.log(itineraryData[j])
+            console.log(itinerary)
+            if(itinerary){
+            zone.itinerary.push(itinerary);
             }else {
-                throw Error("drone is null, check again")
+                throw Error("itinerary is null, check again")
             }
         }
 
@@ -42,10 +42,10 @@ exports.deleteItinerarytoZone = async (data) => {
      
      let zone = await MonitoredZone.findById(data.zone);
      console.log(zone)
-     console.log(data.drone)
+     console.log(data.itinerary)
 
 
-     zone.drone = zone.drone.filter(x => {data.drone!==x.id })
+     zone.itinerary = zone.itinerary.filter(x => {data.itinerary!==x.id })
      await zone.save();
 
     return { zone}
@@ -54,7 +54,7 @@ exports.deleteItinerarytoZone = async (data) => {
 exports.deleteItineraryTest = async (_id)=>{
     let zone = await MonitoredZone.findById(_id);
 
-        zone.drone = [];
+        zone.itinerary = [];
         zone.save()
 
     return {zone}
@@ -63,20 +63,20 @@ exports.deleteItineraryTest = async (_id)=>{
 exports.getItinerarybyZone = async (_id) => {
     console.log(_id)
     let zone = await MonitoredZone.findById(_id)
-    let drone = [];
+    let itinerary = [];
 
-    for (var i = 0; i < zone.drone.length; i++) {
-        //let element = await Drone.findById(zone.drone[i]);
+    for (var i = 0; i < zone.itinerary.length; i++) {
+        //let element = await itinerary.findById(zone.itinerary[i]);
         let element
-        await axios.get("http://skyrone.cf:6789/drone/getById/" + zone.drone[i])
+        await axios.get("http://skyrone.cf:6789/itinerary/getById/" + zone.itinerary[i])
             .then((response) => {
                 element = response.data
                 console.log(response.data)
             }).catch(error => {
                 console.log(error)
             })
-        drone.push(element)
+        itinerary.push(element)
     }
 
-    return { drone }
+    return { itinerary }
 }
