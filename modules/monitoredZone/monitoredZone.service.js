@@ -87,16 +87,16 @@ exports.updateZone = async (_id, data) => {
     let zone = await MonitoredZone.findById(_id)
 
 
-    if (data.drone) {
-        let drone;
-        for (var i = 0; i < data.drone.length; i++) {
-            drone = await Drone.findById({ _id: data.drone[i]._id });
-            if (drone) {
-                drone.monitoredZone = zone;
-                drone.save()
-            }
-        }
-    }
+    // if (data.drone) {
+    //     let drone;
+    //     for (var i = 0; i < data.drone.length; i++) {
+    //         drone = await Drone.findById({ _id: data.drone[i]._id });
+    //         if (drone) {
+    //             drone.monitoredZone = zone;
+    //             drone.save()
+    //         }
+    //     }
+    // }
 
     return { zone }
 }
