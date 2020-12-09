@@ -5,34 +5,39 @@ const axios = require('axios')
 exports.setItinerarytoZone = async (data) => {
     let zone = await MonitoredZone.findById(data.zone);
     let itineraryData = data.itinerary;
-    let itinerary;
 
-    if (zone) {
-        for (var j = 0; j < itineraryData.length; j++) {
-            //itinerary = await itinerary.findById(itineraryData[j]);
-
-            await axios.get("http://skyrone.cf:6789/itinerary/getById/" + itineraryData[j])
-                .then((response) => {
-                    itinerary = response.data
-                    console.log(response.data)
-                }).catch(error => {
-                    console.log(error)
-                })
-
-
-            //console.log(itineraryData[j])
-            console.log(itinerary)
-            if(itinerary){
-            zone.itinerary.push(itinerary);
-            }else {
-                throw Error("itinerary is null, check again")
-            }
-        }
-
-        await zone.save();
-    } else {
-        throw Error("Cannot find zone")
+    if(zone){
+        zone.itinerary.push(itineraryData);
+        zone.save();
+    }else{
+        throw Error("Zone is not exist")
     }
+    // let itinerary;
+
+    // if (zone) {
+    //     for (var j = 0; j < itineraryData.length; j++) {
+    //         await axios.get("http://skyrone.cf:6789/flightPath/getAllBySupervisedArea/" + data.zone)
+    //             .then((response) => {
+    //                 itinerary = response.data
+    //                 console.log(response.data)
+    //             }).catch(error => {
+    //                 console.log(error)
+    //             })
+
+
+    //         //console.log(itineraryData[j])
+    //         console.log(itinerary)
+    //         if(itinerary){
+    //         zone.itinerary.push(itinerary);
+    //         }else {
+    //             throw Error("itinerary is null, check again")
+    //         }
+    //     }
+
+    //     await zone.save();
+    // } else {
+    //     throw Error("Cannot find zone")
+    // }
 
     return { zone: zone }
 
