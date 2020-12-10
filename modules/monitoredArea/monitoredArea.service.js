@@ -24,7 +24,7 @@ exports.createMonitoredArea = async (data) => {
         priority: data.priority? data.priority : 0,
         level: 0,
         times: 0,
-        description: null
+        description: data.description? data.description : ""
     })
 
    

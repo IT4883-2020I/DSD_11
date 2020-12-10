@@ -41,7 +41,7 @@ exports.createZone = async (data, areaid) => {
         endPoint: data.endPoint, //object longlat
         priority: data.priority? data.priority:0,  //number
         itinerary: data.itinerary, //array 
-        description: data.description? data.description : null, //string
+        description: data.description? data.description : "", //string
         active: data.active? data.active: 1, //boolean
         incidentType: data.incidentType, //id
         times: data.times? data.times: 0,
