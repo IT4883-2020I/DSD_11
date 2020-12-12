@@ -7,10 +7,10 @@ exports.getAllMonitoredArea = async (req, res) => {
 
     const limit = pageSize ? pageSize : 20;
     const offset = page ? page * limit : 0;
-    let monitoredArea = await MonitoredArea.find({}).sort({'createdAt': -1}).skip(offset).limit(limit)
+    let monitoredArea = await MonitoredArea.find({}).sort({ 'createdAt': -1 }).skip(offset).limit(limit)
     let size = await MonitoredZone.count({})
 
-    return { monitoredArea, page: page ? page : 0, pageSize: limit, totalPage: parseInt(size/limit) + 1, totalCount: size }
+    return { monitoredArea, page: page ? page : 0, pageSize: limit, totalPage: parseInt(size / limit) + 1, totalCount: size }
 }
 
 exports.createMonitoredArea = async (data) => {
@@ -21,13 +21,13 @@ exports.createMonitoredArea = async (data) => {
         endPoint: data.endPoint,
         maxHeight: data.maxHeight,
         minHeight: data.minHeight,
-        priority: data.priority? data.priority : 0,
+        priority: data.priority ? data.priority : 0,
         level: 0,
         times: 0,
-        description: data.description? data.description : ""
+        description: data.description ? data.description : ""
     })
 
-   
+
     // supervisor
     // name
     // code
@@ -40,7 +40,7 @@ exports.createMonitoredArea = async (data) => {
     // description
     // level
     // times
-    
+
     return { area }
 }
 
@@ -51,22 +51,28 @@ exports.getAreawithId = async (_id) => {
 
 exports.deleteAreawithId = async (_id) => {
     let area = await MonitoredArea.findByIdAndDelete({ _id: _id });
-    let zone = await MonitoredZone.deleteMany({area: _id})
-   
+    let zone = await MonitoredZone.deleteMany({ area: _id })
+
     return { area }
 }
 
 exports.updateArea = async (_id, data) => {
     console.log(data)
-    await MonitoredArea.update({ _id: _id }, { $set: data });
     let area = await MonitoredArea.findById(_id)
+    let result
+    if (area) {
+        await MonitoredArea.update({ _id: _id }, { $set: data });
+        result = await MonitoredArea.findById(_id)
+    } else {
+        throw Error("Cannot find area")
+    }
     console.log(_id)
 
-    return { area }
+    return { result }
 }
 
 exports.statisticFrequency = async () => {
-    let data = await MonitoredArea.find().sort({'times': -1}).select(['code','name', 'times']);
+    let data = await MonitoredArea.find().sort({ 'times': -1 }).select(['code', 'name', 'times']);
     return { data }
 }
 
