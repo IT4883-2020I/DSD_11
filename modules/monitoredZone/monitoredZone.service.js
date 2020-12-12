@@ -83,9 +83,16 @@ exports.deleteZone = async (_id) => {
 
 exports.updateZone = async (_id, data) => {
     console.log(data)
+    let zone = await MonitoredZone.findById(_id);
+    let result
+    
+    if(zone){
     await MonitoredZone.update({ _id: _id }, { $set: data });
-    let zone = await MonitoredZone.findById(_id)
-
+ result = await MonitoredZone.findById(_id);
+    } else {
+        throw Error("Cannot find zone")
+    }
+    
 
     // if (data.drone) {
     //     let drone;
@@ -98,7 +105,7 @@ exports.updateZone = async (_id, data) => {
     //     }
     // }
 
-    return { zone }
+    return { result }
 }
 exports.statisticFrequency = async () => {
     let data = await MonitoredZone.find().sort({'times': -1}).select(['code','name', 'times']);
