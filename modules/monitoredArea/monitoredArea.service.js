@@ -67,7 +67,10 @@ exports.updateArea = async (_id, data) => {
 
 exports.statisticFrequency = async () => {
     let data = await MonitoredArea.find().sort({'times': -1});
-    return { data }
+    return { area: {
+        name: data.name,
+        times:data.times
+    } }
 }
 
 exports.statisticLevel = async (level) => {
