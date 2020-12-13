@@ -1,6 +1,7 @@
 const { MonitoredZone } = require(SERVER_DIR + '/models');
 const { MonitoredArea } = require(SERVER_DIR + "/models");
 const { Incident } = require(SERVER_DIR + "/models")
+const axios = require('axios')
 var mongoose = require("mongoose")
 
 exports.getZonebyArea = async (_id) => {
