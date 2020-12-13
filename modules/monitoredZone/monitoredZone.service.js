@@ -131,15 +131,14 @@ exports.statisticLevel = async (level) => {
 exports.addType = async () => {
     let zone = await MonitoredZone.find();
     let type = ['5fcddbf440b30c37e4315388', '5fcddbf440b30c37e4315389', '5fcddbf440b30c37e431538a', '5fcddbf440b30c37e431538b'];
-    let text = ['CR', 'DD', 'LD', 'CT']
-    let result = []
+    
     for (let i = 0; i < zone.length; i++) {
         let index = Math.floor(Math.random() * type.length)
         let incidentType = type[index]
-        zone.incidentType = incidentType
-
-       await zone.save()
+        zone[i].incidentType = incidentType
+        zone[i].save()
     }
+    
     return { zone }
 }
 
