@@ -122,7 +122,7 @@ exports.statisticFrequency = async () => {
         
     }
 
-    return { data }
+    return { result }
 }
 
 exports.statisticLevel = async (level) => {
