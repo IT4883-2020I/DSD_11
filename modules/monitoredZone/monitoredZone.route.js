@@ -11,5 +11,6 @@ router.delete("/:_id", monitoredZoneController.deleteZone)
 router.put("/:_id", monitoredZoneController.updateZone);
 router.get('/statisticFrequency',  monitoredZoneController.statisticFrequency);
 //router.get('/statisticLevel/:level',  monitoredZoneController.statisticLevel);
+router.get('/addType', monitoredZoneController.addType)
 
 module.exports = router

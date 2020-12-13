@@ -62,7 +62,8 @@ const monitoredZoneSchema = new Schema({
     },
     incidentType: {
         type: mongoose.Types.ObjectId,
-        ref: 'Incident'
+        ref: 'Incident',
+        required: true
     }
 }, {
     timestamps: true

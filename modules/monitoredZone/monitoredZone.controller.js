@@ -157,3 +157,23 @@ exports.statisticLevel = async (req, res) => {
         })
     }
 }
+
+exports.addType = async (req, res) => {
+    try {
+
+        let result = await monitoredZoneService.addType()
+
+        res.status(200).json({
+            success: true, 
+            message: "add type successfully",
+            content: result
+        })
+
+    }catch (error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot add type",
+            content: error.message
+        })
+    }
+}
