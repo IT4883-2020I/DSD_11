@@ -1,4 +1,3 @@
-const { itinerary } = require(SERVER_DIR + "/models");
 const { MonitoredZone } = require(SERVER_DIR + "/models");
 const axios = require('axios')
 

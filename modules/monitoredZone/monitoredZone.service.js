@@ -110,7 +110,13 @@ exports.updateZone = async (_id, data) => {
 exports.statisticFrequency = async () => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times']);
     for (let i = 0; i < data.length; i++) {
-
+        // await axios.get("http://skyrone.cf:6789/itinerary/getById/" + zone.itinerary[i])
+        // .then((response) => {
+        //     element = response.data
+        //     console.log(response.data)
+        // }).catch(error => {
+        //     console.log(error)
+        // })
     }
 
     return { data }
