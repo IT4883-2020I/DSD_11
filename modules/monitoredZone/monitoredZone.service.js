@@ -115,10 +115,11 @@ exports.statisticFrequency = async () => {
         await axios.get("https://monitoredzoneserver.herokuapp.com/incident/" + result[i].incidentType)
         .then((response) => {
             result[i].incident = response.data.content.incident.name
-            
+            console.log(response.data.content.incident.name)
         }).catch(error => {
             console.log(error)
         })
+        
     }
 
     return { result }
