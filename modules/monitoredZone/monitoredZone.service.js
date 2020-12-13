@@ -109,10 +109,10 @@ exports.updateZone = async (_id, data) => {
 }
 exports.statisticFrequency = async () => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times']);
-    for(let i =0; i<data.length; i++){
-        
+    for (let i = 0; i < data.length; i++) {
+
     }
-    
+
     return { data }
 }
 
@@ -133,12 +133,13 @@ exports.addType = async () => {
     let type = ['5fcddbf440b30c37e4315388', '5fcddbf440b30c37e4315389', '5fcddbf440b30c37e431538a', '5fcddbf440b30c37e431538b'];
     let text = ['CR', 'DD', 'LD', 'CT']
     let result = []
-    for(let i =0; i< zone.length; i++){
-        let index = Math.floor(Math.random()*type.length) 
+    for (let i = 0; i < zone.length; i++) {
+        let index = Math.floor(Math.random() * type.length)
         let incidentType = type[index]
         zone.incidentType = incidentType
+
+        zone.save()
     }
-    zone.save()
-    return {zone}
+    return { zone }
 }
 
