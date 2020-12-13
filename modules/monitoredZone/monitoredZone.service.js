@@ -108,7 +108,7 @@ exports.updateZone = async (_id, data) => {
     return { result }
 }
 exports.statisticFrequency = async () => {
-    let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'itinerary']);
+    let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
     return { data }
 }
 
