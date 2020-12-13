@@ -18,10 +18,10 @@ exports.getAllZone = async (req) => {
 
     const offset = page ? page * limit : 0;
 
-    let zone = await MonitoredZone.find({}).sort({'createdAt': -1,'priority':-1}).skip(offset).limit(limit);
+    let zone = await MonitoredZone.find({}).sort({ 'createdAt': -1, 'priority': -1 }).skip(offset).limit(limit);
     let size = await MonitoredZone.count({})
 
-    return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size / limit) +1, totalCount: size }
+    return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size / limit) + 1, totalCount: size }
 }
 
 exports.getZonebyId = async (_id) => {
@@ -33,19 +33,19 @@ exports.createZone = async (data, areaid) => {
 
     let zone = await MonitoredZone.create({
         area: mongoose.Types.ObjectId(areaid),
-        name: data.name? data.name: "", //string
+        name: data.name ? data.name : "", //string
         code: data.code, //string
         minHeight: data.minHeight,
         maxHeight: data.maxHeight,
         startPoint: data.startPoint, //object longlat
         endPoint: data.endPoint, //object longlat
-        priority: data.priority? data.priority:0,  //number
+        priority: data.priority ? data.priority : 0,  //number
         itinerary: data.itinerary, //array 
-        description: data.description? data.description : "", //string
-        active: data.active? data.active: 1, //boolean
+        description: data.description ? data.description : "", //string
+        active: data.active ? data.active : 1, //boolean
         incidentType: data.incidentType, //id
-        times: data.times? data.times: 0,
-        level: data.level? data.level :0
+        times: data.times ? data.times : 0,
+        level: data.level ? data.level : 0
     })
 
     let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
@@ -85,14 +85,14 @@ exports.updateZone = async (_id, data) => {
     console.log(data)
     let zone = await MonitoredZone.findById(_id);
     let result
-    
-    if(zone){
-    await MonitoredZone.update({ _id: _id }, { $set: data });
- result = await MonitoredZone.findById(_id);
+
+    if (zone) {
+        await MonitoredZone.update({ _id: _id }, { $set: data });
+        result = await MonitoredZone.findById(_id);
     } else {
         throw Error("Cannot find zone")
     }
-    
+
 
     // if (data.drone) {
     //     let drone;
@@ -108,7 +108,7 @@ exports.updateZone = async (_id, data) => {
     return { result }
 }
 exports.statisticFrequency = async () => {
-    let data = await MonitoredZone.find().sort({'times': -1}).select(['code','name', 'times']);
+    let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'itinerary']);
     return { data }
 }
 
