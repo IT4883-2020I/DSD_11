@@ -109,12 +109,13 @@ exports.updateZone = async (_id, data) => {
     return { result }
 }
 exports.statisticFrequency = async () => {
-    let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times']);
+    let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
     let result = data
     for (let i = 0; i < data.length; i++) {
         await axios.get("https://monitoredzoneserver.herokuapp.com/incident" + result[i].incidentType)
         .then((response) => {
             result[i].incident = response.name
+            console.log(response.name)
         }).catch(error => {
             console.log(error)
         })
