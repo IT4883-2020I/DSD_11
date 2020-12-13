@@ -50,7 +50,7 @@ exports.createZone = async (data, areaid) => {
 
     let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
     area.monitoredZone.push(zone);
-    area.save()
+    await area.save()
 
     // let drone;
     // if (data.drone) {
@@ -75,7 +75,7 @@ exports.deleteZone = async (_id) => {
     if (index > -1) {
         area.monitoredZone.splice(index, 1)
     }
-    area.save();
+    await area.save();
 
 
     return { area }
@@ -138,7 +138,7 @@ exports.addType = async () => {
         let incidentType = type[index]
         zone.incidentType = incidentType
 
-        zone.save()
+       await zone.save()
     }
     return { zone }
 }

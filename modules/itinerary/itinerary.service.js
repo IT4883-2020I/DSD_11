@@ -8,7 +8,7 @@ exports.setItinerarytoZone = async (data) => {
 
     if(zone){
         zone.itinerary.push(itineraryData);
-        zone.save();
+        await zone.save();
     }else{
         throw Error("Zone is not exist")
     }
@@ -60,7 +60,7 @@ exports.deleteItineraryTest = async (_id)=>{
     let zone = await MonitoredZone.findById(_id);
 
         zone.itinerary = [];
-        zone.save()
+       await zone.save()
 
     return {zone}
 }
