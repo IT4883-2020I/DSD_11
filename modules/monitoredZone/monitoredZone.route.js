@@ -4,7 +4,7 @@ const monitoredZoneController = require("./monitoredZone.controller");
 const {auth} = require("../../middleware/index");
 
 router.get("/area/:_id", monitoredZoneController.getZonebyArea);
-router.get("/incident/:_id", monitoredZoneController.getZonebyIncident);
+router.get("/incident", monitoredZoneController.getZonebyIncident);
 router.get("/", monitoredZoneController.getAllZone);
 router.get("/zoneinfo/:_id", monitoredZoneController.getZonebyId);
 router.post("/area", monitoredZoneController.createZone);

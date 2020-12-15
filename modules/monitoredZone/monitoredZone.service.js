@@ -118,7 +118,7 @@ exports.statisticFrequency = async (token) => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
     
 
-    return { result: result, data: data }
+    return {data }
 }
 
 exports.statisticLevel = async (level) => {
