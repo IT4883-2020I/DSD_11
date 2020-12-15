@@ -120,17 +120,17 @@ exports.statisticFrequency = async (token) => {
     let headers = {
         'token': token
     }
-   // for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
        console.log(data[1])
         if(data[1].incidentType){
         await axios.get("http://distributed.de-lalcool.com/api/projectType/" + data[1].incidentType, {headers})
         .then((response) => {
-            console.log(response)
-            //result[i].incident = response.data.content.incident.name
+            //console.log(response)
+            result[i].incident = response.data.result
         }).catch(error => {
             console.log(error)
         })}
-  //  }
+    }
 
     return { result }
 }
