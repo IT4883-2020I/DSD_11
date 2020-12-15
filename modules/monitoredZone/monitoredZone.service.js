@@ -119,7 +119,6 @@ exports.statisticFrequency = async () => {
         }).catch(error => {
             console.log(error)
         })}
-        
     }
 
     return { result }

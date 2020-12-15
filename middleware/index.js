@@ -1,13 +1,14 @@
 const jwt = require("jsonwebtoken");
 const http = require("http");
 const axios = require("axios");
+const { type } = require("os");
 
 exports.auth = async (req, res, next) => {
     try {
 
         let headers = {
             'api-token': req.headers.token,
-            'project-type': "CHAY_RUNG"
+            'project-type': req.headers.projectType
         }
         console.log(headers["api-token"])
 

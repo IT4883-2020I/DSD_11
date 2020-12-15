@@ -18,3 +18,21 @@ exports.getIncidentById = async (req, res) => {
         })
     }
 }
+
+exports.getAllIncident = async (req, res) => {
+    try {
+        let result = await incidentSevice.getAllIncident();
+        res.status(200).json({
+            success: true, 
+            message: "Get all incident successfully",
+            content: result
+        })
+        
+    }catch(error) {
+        res.status(400).json({
+            success: false,
+            message: "cannot get all incident",
+            content: error.message
+        })
+    }
+}

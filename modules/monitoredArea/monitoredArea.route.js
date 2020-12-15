@@ -3,7 +3,7 @@ const router = express.Router();
 const monitoredAreaController = require('./monitoredArea.controller');
 const {auth} = require('../../middleware/index')
 
-router.get('/',  monitoredAreaController.getAllMonitoredArea);
+router.get('/', monitoredAreaController.getAllMonitoredArea);
 router.post('/',  monitoredAreaController.createNewArea);
 router.get('/areainfo/:_id',  monitoredAreaController.getAreabyId);
 router.put('/:_id', monitoredAreaController.updateArea);
