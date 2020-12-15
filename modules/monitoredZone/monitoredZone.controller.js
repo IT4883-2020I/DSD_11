@@ -21,10 +21,9 @@ exports.getZonebyArea = async (req, res) => {
 }
 exports.getZonebyIncident = async (req, res) => {
     try {
-        console.log("Get zone by area id");
-        let type = req.params.type;
+        console.log("Get zone by incident");
+        let type = req.query.type;
         const data = await monitoredZoneService.getZonebyIncident(type);
-        console.log(data)
         res.status(200).json({
             success: true, 
             message: "Get zone by area id successfully",
