@@ -114,18 +114,23 @@ exports.updateZone = async (_id, data) => {
 
     return { result }
 }
-exports.statisticFrequency = async () => {
+exports.statisticFrequency = async (token) => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
-    let result = await MonitoredZone.find().sort({ 'times': -1 }).lean().select(['code', 'name', 'times', 'incidentType']);
-    for (let i = 0; i < data.length; i++) {
-        if(data[i].incidentType){
-        await axios.get("https://monitoredzoneserver.herokuapp.com/incident/" + data[i].incidentType)
+    let result = await MonitoredZone.find().lean().select(['code', 'name', 'times', 'incidentType']);
+    let headers = {
+        'token': token
+    }
+   // for (let i = 0; i < data.length; i++) {
+       console.log(data[1])
+        if(data[1].incidentType){
+        await axios.get("http://distributed.de-lalcool.com/api/projectType/" + data[1].incidentType, {headers})
         .then((response) => {
-            result[i].incident = response.data.content.incident.name
+            console.log(response)
+            //result[i].incident = response.data.content.incident.name
         }).catch(error => {
             console.log(error)
         })}
-    }
+  //  }
 
     return { result }
 }

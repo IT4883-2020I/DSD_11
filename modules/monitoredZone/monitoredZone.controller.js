@@ -139,7 +139,7 @@ exports.updateZone = async (req, res) => {
 exports.statisticFrequency = async (req, res) => {
     try {
 
-        let result = await monitoredZoneService.statisticFrequency()
+        let result = await monitoredZoneService.statisticFrequency(req.headers.token)
 
         res.status(200).json({
             success: true, 
