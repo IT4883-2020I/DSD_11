@@ -10,9 +10,9 @@ exports.getZonebyArea = async (_id) => {
     return { zone }
 }
 
-exports.getZonebyIncident = async (_id) => {
+exports.getZonebyIncident = async (type) => {
 
-    let zone = await MonitoredZone.find({ incidentType: _id });
+    let zone = await MonitoredZone.find({ incidentType: type });
     return { zone }
 }
 
@@ -116,22 +116,9 @@ exports.updateZone = async (_id, data) => {
 }
 exports.statisticFrequency = async (token) => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
-    let result = await MonitoredZone.find().lean().select(['code', 'name', 'times', 'incidentType']);
-    let headers = {
-        'token': token
-    }
-    for (let i = 0; i < data.length; i++) {
-        if(data[i].incidentType){
-        await axios.get("http://distributed.de-lalcool.com/api/projectType/" + data[i].incidentType, {headers})
-        .then((response) => {
-            //console.log(response)
-            result[i].incident = response.data.result
-        }).catch(error => {
-            console.log(error)
-        })}
-    }
+    
 
-    return { result: [result, data] }
+    return { result: result, data: data }
 }
 
 exports.statisticLevel = async (level) => {
@@ -148,7 +135,7 @@ exports.statisticLevel = async (level) => {
 
 exports.addType = async () => {
     let zone = await MonitoredZone.find();
-    let type = [1, 2, 3, 4];
+    let type = ["CHAY_RUNG", "DE_DIEU", "CAY_TRONG", "LUOI_DIEN"];
     
     for (let i = 0; i < zone.length; i++) {
         let index = Math.floor(Math.random() * type.length)

@@ -3,7 +3,7 @@ const monitoredZoneService = require("./monitoredZone.service");
 exports.getZonebyArea = async (req, res) => {
     try {
         console.log("Get zone by area id");
-        let _id = req.params;
+        let _id = req.params._id;
         const data = await monitoredZoneService.getZonebyArea(_id);
         console.log(data)
         res.status(200).json({
@@ -22,8 +22,8 @@ exports.getZonebyArea = async (req, res) => {
 exports.getZonebyIncident = async (req, res) => {
     try {
         console.log("Get zone by area id");
-        let _id = req.params;
-        const data = await monitoredZoneService.getZonebyIncident(_id);
+        let type = req.params.type;
+        const data = await monitoredZoneService.getZonebyIncident(type);
         console.log(data)
         res.status(200).json({
             success: true, 
@@ -58,7 +58,7 @@ exports.getAllZone = async (req, res) => {
 
 exports.getZonebyId = async (req, res) => {
     try{
-        let _id = req.params;
+        let _id = req.param._id;
         let data = await monitoredZoneService.getZonebyId(_id);
 
         res.status(200).json({

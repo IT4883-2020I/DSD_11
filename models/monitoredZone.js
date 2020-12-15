@@ -61,7 +61,7 @@ const monitoredZoneSchema = new Schema({
         type: Boolean
     },
     incidentType: {
-        type: Number,
+        type: String,
         required: true
     }
 }, {
