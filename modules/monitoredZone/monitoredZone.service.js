@@ -10,6 +10,12 @@ exports.getZonebyArea = async (_id) => {
     return { zone }
 }
 
+exports.getZonebyIncident = async (_id) => {
+
+    let zone = await MonitoredZone.find({ incidentType: _id });
+    return { zone }
+}
+
 exports.getAllZone = async (req) => {
     const page = Number(req.query.page);
     const pageSize = Number(req.query.pageSize);
@@ -138,7 +144,7 @@ exports.statisticLevel = async (level) => {
 
 exports.addType = async () => {
     let zone = await MonitoredZone.find();
-    let type = ['5fcddbf440b30c37e4315388', '5fcddbf440b30c37e4315389', '5fcddbf440b30c37e431538a', '5fcddbf440b30c37e431538b'];
+    let type = [1, 2, 3, 4];
     
     for (let i = 0; i < zone.length; i++) {
         let index = Math.floor(Math.random() * type.length)
