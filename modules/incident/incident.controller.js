@@ -3,7 +3,7 @@ const incidentSevice = require('./incident.service');
 exports.getIncidentById = async (req, res) => {
     try {
         let _id = req.params._id;
-        let result = await incidentSevice.getIncidentbyId(_id);
+        let result = await incidentSevice.getIncidentbyId(_id, req.headers.token);
         res.status(200).json({
             success: true,
             message: "Get incident successfully",
@@ -21,7 +21,7 @@ exports.getIncidentById = async (req, res) => {
 
 exports.getAllIncident = async (req, res) => {
     try {
-        let result = await incidentSevice.getAllIncident();
+        let result = await incidentSevice.getAllIncident(req.headers.token);
         res.status(200).json({
             success: true, 
             message: "Get all incident successfully",
