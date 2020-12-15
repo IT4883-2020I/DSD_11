@@ -131,7 +131,7 @@ exports.statisticFrequency = async (token) => {
         })}
     }
 
-    return { result }
+    return { result: [result, data] }
 }
 
 exports.statisticLevel = async (level) => {
