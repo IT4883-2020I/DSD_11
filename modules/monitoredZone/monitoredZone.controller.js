@@ -26,13 +26,13 @@ exports.getZonebyIncident = async (req, res) => {
         const data = await monitoredZoneService.getZonebyIncident(type);
         res.status(200).json({
             success: true, 
-            message: "Get zone by area id successfully",
+            message: "Get zone by incident successfully",
             content: data
         })
     }catch(error){
         res.status(400).json({
             success: false,
-            message: "Cannot get zone by area id",
+            message: "Cannot get zone by incident",
             content: error.message
         })
     }

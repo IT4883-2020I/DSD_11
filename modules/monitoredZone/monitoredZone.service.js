@@ -12,7 +12,7 @@ exports.getZonebyArea = async (_id) => {
 
 exports.getZonebyIncident = async (type) => {
     console.log(type)
-    let zone = await MonitoredZone.find({ incidentType: type });
+    let zone = await MonitoredZone.find({ code: type });
     return { zone }
 }
 
