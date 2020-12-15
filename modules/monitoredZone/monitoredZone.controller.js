@@ -19,7 +19,25 @@ exports.getZonebyArea = async (req, res) => {
         })
     }
 }
-
+exports.getZonebyIncident = async (req, res) => {
+    try {
+        console.log("Get zone by area id");
+        let _id = req.params;
+        const data = await monitoredZoneService.getZonebyArea(_id);
+        console.log(data)
+        res.status(200).json({
+            success: true, 
+            message: "Get zone by area id successfully",
+            content: data
+        })
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message: "Cannot get zone by area id",
+            content: error.message
+        })
+    }
+}
 exports.getAllZone = async (req, res) => {
     try {
         let data = await monitoredZoneService.getAllZone(req);
