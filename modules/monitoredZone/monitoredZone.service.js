@@ -116,14 +116,14 @@ exports.updateZone = async (_id, data) => {
 }
 exports.statisticFrequency = async (token) => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
-    let result = await MonitoredZone.find().lean().select(['code', 'name', 'times', 'incidentType']);
+    let result = await MonitoredZone.find().lean().select(['code', 'name', 'times']);
     let headers = {
         'token': token
     }
     for (let i = 0; i < data.length; i++) {
-       console.log(data[1])
-        if(data[1].incidentType){
-        await axios.get("http://distributed.de-lalcool.com/api/projectType/" + data[1].incidentType, {headers})
+       
+        if(data[i].incidentType){
+        await axios.get("http://distributed.de-lalcool.com/api/projectType/" + data[i].incidentType, {headers})
         .then((response) => {
             //console.log(response)
             result[i].incident = response.data.result
