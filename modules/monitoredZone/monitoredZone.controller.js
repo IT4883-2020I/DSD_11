@@ -57,7 +57,7 @@ exports.getAllZone = async (req, res) => {
 
 exports.getZonebyId = async (req, res) => {
     try{
-        let _id = req.param._id;
+        let _id = req.params._id;
         let data = await monitoredZoneService.getZonebyId(_id);
 
         res.status(200).json({
