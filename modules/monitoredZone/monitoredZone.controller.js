@@ -192,3 +192,22 @@ exports.addType = async (req, res) => {
         })
     }
 }
+exports.filter = async (req, res) => {
+    try {
+        let field = req.query
+        let result = await monitoredZoneService.filter(field)
+
+        res.status(200).json({
+            success: true, 
+            message: "filter successfully",
+            content: result
+        })
+
+    }catch (error){
+        res.status(400).json({
+            success: false, 
+            message: "Cannot filter",
+            content: error.message
+        })
+    }
+}

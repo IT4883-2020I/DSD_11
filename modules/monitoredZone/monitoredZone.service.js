@@ -25,10 +25,7 @@ exports.getAllZone = async (req) => {
 
     const page = Number(req.query.page);
     const pageSize = Number(req.query.pageSize);
-
-
     const limit = pageSize ? pageSize : 20;
-
     const offset = page ? page * limit : 0;
 
     let zone;
@@ -155,3 +152,7 @@ exports.addType = async () => {
     return { zone }
 }
 
+exports.filter = async (field) => {
+    let zone = await MonitoredZone.find(field);
+    return {zone}
+}
