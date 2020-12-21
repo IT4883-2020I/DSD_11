@@ -45,15 +45,15 @@ exports.getAllZone = async (req) => {
 
 exports.getZonebyId = async (_id) => {
     let type = global.user.type
-    let zone = await MonitoredZone.findById(_id);
-    let result;
-    if (zone.incidentType === type || type === "ALL_PROJECT") {
-        result = zone
+    let zonecheck = await MonitoredZone.findById(_id);
+    let zone;
+    if (zonecheck.incidentType === type || type === "ALL_PROJECT") {
+        zone = zonecheck
     } else {
         throw Error( "Ban khong co quyen xem tai lieu nay.")
     }
 
-    return { result }
+    return { zone }
 }
 
 exports.createZone = async (data, areaid) => {
