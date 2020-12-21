@@ -82,18 +82,6 @@ exports.createZone = async (data, areaid) => {
     area.monitoredZone.push(zone);
     await area.save()
 
-    // let drone;
-    // if (data.drone) {
-    //     for (var i = 0; i < data.drone.length; i++) {
-    //         drone = await Drone.findById({ _id: data.drone[i]._id });
-    //         console.log(drone)
-    //         if (drone) {
-    //             drone.monitoredZone = zone;
-    //             drone.save()
-    //         }
-    //     }
-    // }
-
     return { zone }
 }
 
@@ -132,23 +120,9 @@ exports.updateZone = async (_id, data) => {
     } else {
         throw Error("Ban khong co quyen cap nhat tai lieu nay")
     }
-
-    
-
-    // if (data.drone) {
-    //     let drone;
-    //     for (var i = 0; i < data.drone.length; i++) {
-    //         drone = await Drone.findById({ _id: data.drone[i]._id });
-    //         if (drone) {
-    //             drone.monitoredZone = zone;
-    //             drone.save()
-    //         }
-    //     }
-    // }
-
     return { result }
 }
-exports.statisticFrequency = async (token) => {
+exports.statisticFrequency = async () => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
 
 

@@ -18,7 +18,6 @@ exports.auth = async (req, res, next) => {
             .then((response) => {
                 result = response.data.result
                 global.user = result
-                
             }).catch(error => {
                 console.log(error)
             })
