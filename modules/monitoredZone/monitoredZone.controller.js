@@ -4,8 +4,8 @@ exports.getZonebyArea = async (req, res) => {
     try {
         console.log("Get zone by area id");
         let _id = req.params._id;
-        const data = await monitoredZoneService.getZonebyArea(_id);
-        console.log(data)
+        const type = req.headers.projecttype
+        const data = await monitoredZoneService.getZonebyArea(_id, type);
         res.status(200).json({
             success: true, 
             message: "Get zone by area id successfully",
@@ -76,7 +76,6 @@ exports.getZonebyId = async (req, res) => {
 
 exports.createZone = async (req, res) => {
     try {
-        console.log("test")
         let _id = req.body._id
         let data = req.body.data;
         let result;

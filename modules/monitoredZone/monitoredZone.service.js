@@ -5,8 +5,13 @@ const axios = require('axios')
 var mongoose = require("mongoose")
 
 exports.getZonebyArea = async (_id) => {
-
-    let zone = await MonitoredZone.find({ area: _id });
+    const type = global.user.type
+    let zone;
+    if (type === "ALL_PROJECT") {
+        zone = await MonitoredZone.find({ area: _id });
+    } else {
+        zone = await MonitoredZone.find({ area: _id, incidentType: type });
+    }
     return { zone }
 }
 
@@ -17,6 +22,7 @@ exports.getZonebyIncident = async (type) => {
 }
 
 exports.getAllZone = async (req) => {
+
     const page = Number(req.query.page);
     const pageSize = Number(req.query.pageSize);
 
@@ -25,19 +31,36 @@ exports.getAllZone = async (req) => {
 
     const offset = page ? page * limit : 0;
 
-    let zone = await MonitoredZone.find({}).sort({ 'createdAt': -1, 'priority': -1 }).skip(offset).limit(limit);
-    let size = await MonitoredZone.count({})
+    let zone;
+    let type = global.user.type;
+    let size;
+    if (type === "ALL_PROJECT") {
+        zone = await MonitoredZone.find({}).sort({ 'createdAt': -1, 'priority': -1 }).skip(offset).limit(limit);
+        size = await MonitoredZone.count({})
+    } else {
+        zone = await MonitoredZone.find({ incidentType: type }).sort({ 'createdAt': -1, 'priority': -1 }).skip(offset).limit(limit);
+        size = await MonitoredZone.count({ incidentType: type })
+    }
+
 
     return { zone: zone, page: page, pageSize: limit, totalPage: parseInt(size / limit) + 1, totalCount: size }
 }
 
 exports.getZonebyId = async (_id) => {
+    let type = global.user.type
     let zone = await MonitoredZone.findById(_id);
-    return { zone }
+    let result;
+    if (zone.incidentType === type || type === "ALL_PROJECT") {
+        result = zone
+    } else {
+        throw Error( "Ban khong co quyen xem tai lieu nay.")
+    }
+
+    return { result }
 }
 
 exports.createZone = async (data, areaid) => {
-
+    let type = global.user.type;
     let zone = await MonitoredZone.create({
         area: mongoose.Types.ObjectId(areaid),
         name: data.name ? data.name : "", //string
@@ -50,7 +73,7 @@ exports.createZone = async (data, areaid) => {
         itinerary: data.itinerary, //array 
         description: data.description ? data.description : "", //string
         active: data.active ? data.active : 1, //boolean
-        incidentType: data.incidentType, //id
+        incidentType: type, //id
         times: data.times ? data.times : 0,
         level: data.level ? data.level : 0
     })
@@ -75,15 +98,21 @@ exports.createZone = async (data, areaid) => {
 }
 
 exports.deleteZone = async (_id) => {
-    let zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
-    let area = await MonitoredArea.findOne({ monitoredZone: _id })
+    let zonecheck = await MonitoredZone.findById({ _id: _id });
+    let zone;
+    let area;
+    if (global.user.type === "ALL_PROJECT"||zonecheck.incidentType===global.user.type) {
+        zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
+        area= await MonitoredArea.findOne({ monitoredZone: _id })
 
-    let index = area.monitoredZone.indexOf(zone._id);
-    if (index > -1) {
-        area.monitoredZone.splice(index, 1)
+        let index = area.monitoredZone.indexOf(zone._id);
+        if (index > -1) {
+            area.monitoredZone.splice(index, 1)
+        }
+        await area.save();
+    }else {
+        throw Error( "Ban khong co quyen xoa tai lieu nay.")
     }
-    await area.save();
-
 
     return { area }
 }
@@ -91,15 +120,20 @@ exports.deleteZone = async (_id) => {
 exports.updateZone = async (_id, data) => {
     console.log(data)
     let zone = await MonitoredZone.findById(_id);
-    let result
-
-    if (zone) {
-        await MonitoredZone.update({ _id: _id }, { $set: data });
-        result = await MonitoredZone.findById(_id);
+    let result;
+    let type = global.user.type
+    if(zone.incidentType === type || type === "ALL_PROJECT"){
+        if (zone) {
+            await MonitoredZone.update({ _id: _id }, { $set: data });
+            result = await MonitoredZone.findById(_id);
+        } else {
+            throw Error("Cannot find zone")
+        }
     } else {
-        throw Error("Cannot find zone")
+        throw Error("Ban khong co quyen cap nhat tai lieu nay")
     }
 
+    
 
     // if (data.drone) {
     //     let drone;
@@ -116,9 +150,9 @@ exports.updateZone = async (_id, data) => {
 }
 exports.statisticFrequency = async (token) => {
     let data = await MonitoredZone.find().sort({ 'times': -1 }).select(['code', 'name', 'times', 'incidentType']);
-    
 
-    return {data }
+
+    return { data }
 }
 
 exports.statisticLevel = async (level) => {
@@ -136,14 +170,14 @@ exports.statisticLevel = async (level) => {
 exports.addType = async () => {
     let zone = await MonitoredZone.find();
     let type = ["CHAY_RUNG", "DE_DIEU", "CAY_TRONG", "LUOI_DIEN"];
-    
+
     for (let i = 0; i < zone.length; i++) {
         let index = Math.floor(Math.random() * type.length)
         let incidentType = type[index]
         zone[i].incidentType = incidentType
         zone[i].save()
     }
-    
+
     return { zone }
 }
 

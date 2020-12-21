@@ -8,15 +8,17 @@ exports.auth = async (req, res, next) => {
 
         let headers = {
             'api-token': req.headers.token,
-            'project-type': req.headers.projectType
+            'project-type': req.headers.projecttype
         }
         console.log(headers["api-token"])
+        console.log(headers["project-type"])
 
         let result;
         await axios.get("https://distributed.de-lalcool.com/api/verify-token", { headers: headers })
             .then((response) => {
                 result = response.data.result
-                console.log(response.data)
+                global.user = result
+                
             }).catch(error => {
                 console.log(error)
             })

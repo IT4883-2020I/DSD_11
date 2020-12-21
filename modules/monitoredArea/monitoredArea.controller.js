@@ -4,7 +4,7 @@ exports.getAllMonitoredArea = async (req, res) => {
     try {
 
         console.log("get all monitored area");
-        let data = await monitoredAreaService.getAllMonitoredArea(req, res);
+        let data = await monitoredAreaService.getAllMonitoredArea(req.query);
 
         res.status(200).json({
             success: true,

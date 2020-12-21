@@ -10,7 +10,7 @@ const connectOption = {
     useFindAndModify: false
 }
 
-mongoose.connect(uriTestOnline, connectOption)
+mongoose.connect(uri, connectOption)
 .then(()=>{
     console.log("Connect DB successfully")
 }).catch((error)=>{

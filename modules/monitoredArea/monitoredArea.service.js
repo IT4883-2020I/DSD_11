@@ -1,14 +1,15 @@
 const { MonitoredArea } = require(SERVER_DIR + "/models");
 const { MonitoredZone } = require(SERVER_DIR + "/models")
 
-exports.getAllMonitoredArea = async (req, res) => {
-    const page = Number(req.query.page);
-    const pageSize = Number(req.query.pageSize);
+exports.getAllMonitoredArea = async (query, type) => {
+    const page = Number(query.page);
+    const pageSize = Number(query.pageSize);
 
     const limit = pageSize ? pageSize : 20;
     const offset = page ? page * limit : 0;
+
     let monitoredArea = await MonitoredArea.find({}).sort({ 'createdAt': -1 }).skip(offset).limit(limit)
-    let size = await MonitoredZone.count({})
+    let size = await MonitoredArea.count({})
 
     return { monitoredArea, page: page ? page : 0, pageSize: limit, totalPage: parseInt(size / limit) + 1, totalCount: size }
 }
