@@ -47,38 +47,49 @@ exports.getZonebyId = async (_id) => {
     let type = global.user.type
     let zonecheck = await MonitoredZone.findById(_id);
     let zone;
-    if (zonecheck.incidentType === type || type === "ALL_PROJECT") {
-        zone = zonecheck
-    } else {
-        throw Error( "Ban khong co quyen xem tai lieu nay.")
-    }
 
+    if (zonecheck) {
+        if (zonecheck.incidentType === type || type === "ALL_PROJECT") {
+            zone = zonecheck
+
+        } else {
+            throw Error("Ban khong co quyen xem tai lieu nay.")
+        }
+    } else {
+        throw Error("Khong ton tai zone")
+    }
     return { zone }
 }
 
 exports.createZone = async (data, areaid) => {
     let type = global.user.type;
-    let zone = await MonitoredZone.create({
-        area: mongoose.Types.ObjectId(areaid),
-        name: data.name ? data.name : "", //string
-        code: data.code, //string
-        minHeight: data.minHeight,
-        maxHeight: data.maxHeight,
-        startPoint: data.startPoint, //object longlat
-        endPoint: data.endPoint, //object longlat
-        priority: data.priority ? data.priority : 0,  //number
-        itinerary: data.itinerary, //array 
-        description: data.description ? data.description : "", //string
-        active: data.active ? data.active : 1, //boolean
-        incidentType: type, //id
-        times: data.times ? data.times : 0,
-        level: data.level ? data.level : 0
-    })
+    let checkadmin = (global.user.role == "ADMIN");
+    let checksuperadmin = global.user.role == "SUPER_ADMIN";
+    let zone;
+    if (checkadmin || checksuperadmin) {
+        zone = await MonitoredZone.create({
+            area: mongoose.Types.ObjectId(areaid),
+            name: data.name ? data.name : "", //string
+            code: data.code, //string
+            minHeight: data.minHeight,
+            maxHeight: data.maxHeight,
+            startPoint: data.startPoint, //object longlat
+            endPoint: data.endPoint, //object longlat
+            priority: data.priority ? data.priority : 0,  //number
+            itinerary: data.itinerary, //array 
+            description: data.description ? data.description : "", //string
+            active: data.active ? data.active : 1, //boolean
+            incidentType: type, //id
+            times: data.times ? data.times : 0,
+            level: data.level ? data.level : 0
+        })
 
-    let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
-    area.monitoredZone.push(zone);
-    await area.save()
-
+        let area = await MonitoredArea.findById(mongoose.Types.ObjectId(areaid));
+        area.monitoredZone.push(zone);
+        await area.save()
+    } else {
+        throw Error("Ban khong co quyen tao tai lieu nay")
+    }
     return { zone }
 }
 
@@ -86,17 +97,23 @@ exports.deleteZone = async (_id) => {
     let zonecheck = await MonitoredZone.findById({ _id: _id });
     let zone;
     let area;
-    if (global.user.type === "ALL_PROJECT"||zonecheck.incidentType===global.user.type) {
-        zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
-        area= await MonitoredArea.findOne({ monitoredZone: _id })
+    let checkadmin = (global.user.role == "ADMIN" && zonecheck.incidentType === global.user.type);
+    let checksuperadmin = global.user.role == "SUPER_ADMIN"
+    if (checkadmin || checksuperadmin) {
+        if (zonecheck) {
+            zone = await MonitoredZone.findByIdAndDelete({ _id: _id });
+            area = await MonitoredArea.findOne({ monitoredZone: _id })
 
-        let index = area.monitoredZone.indexOf(zone._id);
-        if (index > -1) {
-            area.monitoredZone.splice(index, 1)
+            let index = area.monitoredZone.indexOf(zone._id);
+            if (index > -1) {
+                area.monitoredZone.splice(index, 1)
+            }
+            await area.save();
+        } else {
+            throw Error("Khong ton tai zone")
         }
-        await area.save();
-    }else {
-        throw Error( "Ban khong co quyen xoa tai lieu nay.")
+    } else {
+        throw Error("Ban khong co quyen xoa tai lieu nay.")
     }
 
     return { area }
@@ -106,8 +123,9 @@ exports.updateZone = async (_id, data) => {
     console.log(data)
     let zone = await MonitoredZone.findById(_id);
     let result;
-    let type = global.user.type
-    if(zone.incidentType === type || type === "ALL_PROJECT"){
+    let checkadmin = (global.user.role == "ADMIN" && zone.incidentType === global.user.type);
+    let checksuperadmin = global.user.role == "SUPER_ADMIN"
+    if (checkadmin || checksuperadmin) {
         if (zone) {
             await MonitoredZone.update({ _id: _id }, { $set: data });
             result = await MonitoredZone.findById(_id);
@@ -154,5 +172,5 @@ exports.addType = async () => {
 
 exports.filter = async (field) => {
     let zone = await MonitoredZone.find(field);
-    return {zone}
+    return { zone }
 }

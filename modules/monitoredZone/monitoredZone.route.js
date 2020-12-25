@@ -9,7 +9,7 @@ router.get("/",auth, monitoredZoneController.getAllZone);
 router.get("/zoneinfo/:_id", auth, monitoredZoneController.getZonebyId);
 router.post("/area",auth, monitoredZoneController.createZone);
 router.delete("/:_id", auth, monitoredZoneController.deleteZone);
-router.put("/:_id", monitoredZoneController.updateZone);
+router.put("/:_id", auth, monitoredZoneController.updateZone);
 router.get('/statisticFrequency',  monitoredZoneController.statisticFrequency);
 //router.get('/statisticLevel/:level',  monitoredZoneController.statisticLevel);
 router.get('/addType', monitoredZoneController.addType)

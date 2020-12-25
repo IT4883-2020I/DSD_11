@@ -1,7 +1,7 @@
 const { MonitoredArea } = require(SERVER_DIR + "/models");
 const { MonitoredZone } = require(SERVER_DIR + "/models")
 
-exports.getAllMonitoredArea = async (query, type) => {
+exports.getAllMonitoredArea = async (query) => {
     const page = Number(query.page);
     const pageSize = Number(query.pageSize);
 
@@ -15,21 +15,26 @@ exports.getAllMonitoredArea = async (query, type) => {
 }
 
 exports.createMonitoredArea = async (data) => {
-    let area = await MonitoredArea.create({
-        name: data.name,
-        code: data.code,
-        startPoint: data.startPoint,
-        endPoint: data.endPoint,
-        maxHeight: data.maxHeight,
-        minHeight: data.minHeight,
-        priority: data.priority ? data.priority : 0,
-        level: 0,
-        times: 0,
-        description: data.description ? data.description : ""
-    })
+    let area;
+    let checkadmin = global.user.role === 'ADMIN';
+    let checksuperadmin = global.user.role === 'SUPER_ADMIN';
 
-
-    // supervisor
+    if (checkadmin || checksuperadmin) {
+        area = await MonitoredArea.create({
+            name: data.name,
+            code: data.code,
+            startPoint: data.startPoint,
+            endPoint: data.endPoint,
+            maxHeight: data.maxHeight,
+            minHeight: data.minHeight,
+            priority: data.priority ? data.priority : 0,
+            level: data.level ? data.level : 0,
+            times: data.times ? data.times : 0,
+            description: data.description ? data.description : ""
+        })
+    } else {
+        throw Error("Ban khong co quyen tao khu vuc giam sat, vui long dang nhap voi vai tro admin hoac superadmin")
+    }
     // name
     // code
     // startPoint
@@ -41,7 +46,6 @@ exports.createMonitoredArea = async (data) => {
     // description
     // level
     // times
-
     return { area }
 }
 
@@ -51,24 +55,38 @@ exports.getAreawithId = async (_id) => {
 }
 
 exports.deleteAreawithId = async (_id) => {
-    let area = await MonitoredArea.findByIdAndDelete({ _id: _id });
-    let zone = await MonitoredZone.deleteMany({ area: _id })
-
+    let area;
+    let zone;
+    let findarea = await MonitoredArea.findById(_id)
+    let checksuperadmin = global.user.role === "SUPER_ADMIN"
+    if (checksuperadmin) {
+        if (findarea) {
+            area = await MonitoredArea.findByIdAndDelete({ _id: _id });
+            zone = await MonitoredZone.deleteMany({ area: _id })
+        } else {
+            throw Error("Khong ton tai area")
+        }
+    } else {
+        throw Error("Ban khong co quyen xoa khu vuc giam sat, vui long dang nhap voi vai tro superadmin")
+    }
     return { area }
 }
 
 exports.updateArea = async (_id, data) => {
     console.log(data)
     let area = await MonitoredArea.findById(_id)
-    let result
-    if (area) {
-        await MonitoredArea.update({ _id: _id }, { $set: data });
-        result = await MonitoredArea.findById(_id)
+    let result;
+    let checksuperadmin = global.user.role === "SUPER_ADMIN"
+    if (checksuperadmin) {
+        if (area) {
+            await MonitoredArea.update({ _id: _id }, { $set: data });
+            result = await MonitoredArea.findById(_id)
+        } else {
+            throw Error("Cannot find area")
+        }
     } else {
-        throw Error("Cannot find area")
+        throw Error("Ban khong co quyen cap nhat khu vuc giam sat, vui long dang nhap voi vai tro superadmin")
     }
-    console.log(_id)
-
     return { result }
 }
 
