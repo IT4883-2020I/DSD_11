@@ -1,6 +1,6 @@
 module.exports = {
     apps: [{
-        name: 'SDS 11',
+        name: 'DSD 11',
         script: 'index.js',
 
         // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem$
@@ -12,11 +12,11 @@ module.exports = {
         max_memory_restart: '2G',
         env: {
             NODE_ENV: 'development',
-            PORT: 5000 
+            PORT: 1202 
         },
         env_production: {
             NODE_ENV: 'production',
-            PORT: 5000,
+            PORT: 1202,
             CI: false
         }
     }],
@@ -24,7 +24,7 @@ module.exports = {
     deploy: {
         production: {
             user: 'node',
-            host: '192.168.10.111',
+            host: '192.168.10.110',
             ref: 'origin/master',
             repo: 'git@github.com:repo.git',
             path: '/var/www/production',
